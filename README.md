@@ -1,4 +1,5 @@
 # Fotorum
+## Descrizione
 Webapp di diffusione e condivisione di informazioni/preset e tecniche di fotografia e videografia <br>
 ## Problema che risolve 
 Dubbi e consigli su foto e video
@@ -22,7 +23,7 @@ Dubbi e consigli su foto e video
     - [ ] Gestione Post
         - [ ] Create
             - [ ] Descrizione
-        - [ ] Foto/Video
+        - [ ] File (foto/video)
         - [ ] Edit
         - [ ] AddPreset
         - [ ] DeletePreset
@@ -52,6 +53,7 @@ Dubbi e consigli su foto e video
  
 * Post
     * utente
+    * file (foto/video)
     * likes
     * commenti
     * preset (if you want)
