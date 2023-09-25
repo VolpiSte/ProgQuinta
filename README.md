@@ -63,4 +63,4 @@ Dubbi e consigli su foto e video
     * likes
 
 ## WireFrame Mockup
-<a href="https://www.figma.com/file/FvF1UrD3IYHjHBvuA3CSqv/Fotorum?type=design&node-id=0%3A1&mode=design&t=lhSUObwrHvT3MRQy-1">gogo</a>
+<a target="_blank" href="https://www.figma.com/file/FvF1UrD3IYHjHBvuA3CSqv/Fotorum?type=design&node-id=0%3A1&mode=design&t=lhSUObwrHvT3MRQy-1">gogo</a>
