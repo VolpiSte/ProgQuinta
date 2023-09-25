@@ -61,3 +61,6 @@ Dubbi e consigli su foto e video
 * Commento
     * utente
     * likes
+
+## WireFrame Mockup
+https://www.figma.com/file/FvF1UrD3IYHjHBvuA3CSqv/Fotorum?type=design&node-id=0%3A1&mode=design&t=lhSUObwrHvT3MRQy-1
