@@ -11,35 +11,35 @@ Dubbi e consigli su foto e video
 ## Funzionalità & Attributi
 * Utente
     - [ ] Gestione Account
-        - [ ] Create
-        - [ ] Posts
-        - [ ] Edit
+        - [ ] Crea
+        - [ ] Posta
+        - [ ] Modifica
             - [ ] Descrizione
         - [ ] Gestione Password
             - [ ] Crea
-            - [ ] Passw Dimenticata (servizio recupero password)
-        - [ ] Delete
+            - [ ] Password Dimenticata (servizio recupero password)
+        - [ ] Elimina
 * Post
     - [ ] Gestione Post
-        - [ ] Create
+        - [ ] Crea
             - [ ] Descrizione
         - [ ] File (foto/video)
-        - [ ] Edit
-        - [ ] AddPreset
-        - [ ] DeletePreset
-        - [ ] Delete
+        - [ ] Modifica
+        - [ ] Aggiungi Preset
+        - [ ] Rimuovi Preset
+        - [ ] Elimina
         - [ ] Likes
-        - [ ] Add likes
-        - [ ] Remove likes
+        - [ ] Aggiungi likes
+        - [ ] Rimuovi likes
 * Commento
     - [ ] Gestione Commento
-        - [ ] Create
+        - [ ] Crea
         - [ ] Likes
-        - [ ] Delete
+        - [ ] Elimina
 
 ## Entità
 * Artista (fotografo/Videografo)
-    * nickName (pu)
+    * nickName (public)
     * nome
     * cognome 
     * password
