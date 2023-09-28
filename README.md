@@ -48,7 +48,6 @@ Dubbi e consigli su foto e video
     * sesso (gender idk)
     * likes
     * lavoro
-    * grafico avanzamento (se lavoro)
     * n° post
  
 * Post
