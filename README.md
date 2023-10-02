@@ -38,7 +38,7 @@ Dubbi e consigli su foto e video
         - [ ] Elimina
 
 ## Entità
-* Artista (fotografo/Videografo)
+* Utente (fotografo/Videografo)
     * nickName (public)
     * nome
     * cognome 
@@ -59,7 +59,11 @@ Dubbi e consigli su foto e video
 
 * Commento
     * utente
-    * likes
 
+* Likes
+    * utente
+
+<!--
 ## WireFrame Mockup
-<a target="_blank" href="https://www.figma.com/file/FvF1UrD3IYHjHBvuA3CSqv/Fotorum?type=design&node-id=0%3A1&mode=design&t=lhSUObwrHvT3MRQy-1">gogo</a>
+<a target="_blank" href="https://www.figma.com/file/FvF1UrD3IYHjHBvuA3CSqv/Fotorum?type=design&node-id=0%3A1&mode=design&t=lhSUObwrHvT3MRQy-1"></a>
+-->
