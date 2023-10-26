@@ -83,4 +83,7 @@ Post (<ins>id_post</ins>, file, preset, <u>account_nickname</ins>) <br>
 Commento (<ins>id_commento</ins>, <ins>post_id_post</ins>, <ins>account_nickname</ins>) <br>
 Like (<ins>id_like</ins>, <ins>account_nickname</ins>) <br>
 
-# 
+# Mockup
+![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/9bebc9cd-a83b-454e-a622-d8565fa3110d)
+![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/471cd905-7c9e-4a5b-9ed6-da39b0ec7b98)
+![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/3aa77d3f-5cfe-415b-8251-56b0e5c9b734)
