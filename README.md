@@ -72,3 +72,5 @@ Dubbi e consigli su foto e video
 * Likes
     * id_like (PK)
     * utente
+
+![PerMasturbianni](https://github.com/VolpiSte/ProgQuinta/assets/101709267/96f2c5aa-9980-47d8-84c3-ed0d2c1503e8)
