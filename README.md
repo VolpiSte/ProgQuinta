@@ -80,7 +80,7 @@ Dubbi e consigli su foto e video
 # Schema Relazionale
 Account (<ins>nickName</ins>, nome, cognome, password, dataDiNascita, località, sesso, lavoro, n°likes, n°Post) <br>
 Post (<ins>id_post</ins>, file, preset, <u>account_nickname</ins>) <br>
-Commento (<ins>id_commento</ins>, <ins>post_id_post</ins>, <u>account_nickname</ins>) <br>
+Commento (<ins>id_commento</ins>, <ins>post_id_post</ins>, <ins>account_nickname</ins>) <br>
 Like (<ins>id_like</ins>, <ins>account_nickname</ins>) <br>
 
-# mokup
+# 
