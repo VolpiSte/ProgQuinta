@@ -78,7 +78,7 @@ Dubbi e consigli su foto e video
 ![PerMasturbianni](https://github.com/VolpiSte/ProgQuinta/assets/101709267/b2eb8cbe-e316-4c6d-a6e2-cc361534efea)
 
 # Schema Relazionale
-Utente (<ins>nickName</ins>, nome, cognome, password, dataDiNascita, località, sesso, lavoro, n°likes, n°Post)
-Post (<ins>d_post</ins>, file, preset, <u>utente_nickname</ins>)
-Commento (<ins>id_commento</ins>, <ins>post_id_post</ins>, <u>utente_nickname</ins>)
-Like (<ins>id_like</ins>, <ins>utente_nickname</ins>)
+Utente (<ins>nickName</ins>, nome, cognome, password, dataDiNascita, località, sesso, lavoro, n°likes, n°Post) <br>
+Post (<ins>d_post</ins>, file, preset, <u>utente_nickname</ins>) <br>
+Commento (<ins>id_commento</ins>, <ins>post_id_post</ins>, <u>utente_nickname</ins>) <br>
+Like (<ins>id_like</ins>, <ins>utente_nickname</ins>) <br>
