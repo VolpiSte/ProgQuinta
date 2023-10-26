@@ -17,7 +17,7 @@ Dubbi e consigli su foto e video
 * Aggiunta/rimozione like al post
 * Aggiungi/rimuovi commento
 
-* Utente
+* Account
     - [ ] Gestione Account
         - [ ] Crea
         - [ ] Posta
@@ -45,7 +45,7 @@ Dubbi e consigli su foto e video
         - [ ] Elimina
 
 ## Entità
-* Utente (fotografo/Videografo)
+* Account (fotografo/Videografo)
     * nickName (PK)
     * nome
     * cognome 
@@ -59,7 +59,7 @@ Dubbi e consigli su foto e video
  
 * Post
     * id_post (PK)
-    * utente
+    * account
     * file (foto/video)
     * likes
     * commenti
@@ -68,17 +68,19 @@ Dubbi e consigli su foto e video
 * Commento
     * id_commento (PK)
     * post
-    * utente
+    * account
 
 * Like
     * id_like (PK)
-    * utente
+    * account
 
 # Schema E/R
 ![PerMasturbianni](https://github.com/VolpiSte/ProgQuinta/assets/101709267/b2eb8cbe-e316-4c6d-a6e2-cc361534efea)
 
 # Schema Relazionale
-Utente (<ins>nickName</ins>, nome, cognome, password, dataDiNascita, località, sesso, lavoro, n°likes, n°Post) <br>
-Post (<ins>d_post</ins>, file, preset, <u>utente_nickname</ins>) <br>
-Commento (<ins>id_commento</ins>, <ins>post_id_post</ins>, <u>utente_nickname</ins>) <br>
-Like (<ins>id_like</ins>, <ins>utente_nickname</ins>) <br>
+Account (<ins>nickName</ins>, nome, cognome, password, dataDiNascita, località, sesso, lavoro, n°likes, n°Post) <br>
+Post (<ins>id_post</ins>, file, preset, <u>account_nickname</ins>) <br>
+Commento (<ins>id_commento</ins>, <ins>post_id_post</ins>, <u>account_nickname</ins>) <br>
+Like (<ins>id_like</ins>, <ins>account_nickname</ins>) <br>
+
+# mokup
