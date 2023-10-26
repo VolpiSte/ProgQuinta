@@ -8,7 +8,15 @@ Dubbi e consigli su foto e video
 * JavaScript
 * MySQL
 * php
-## Funzionalità & Attributi
+  
+## Funzionalità 
+* Creazione/eliminazione account
+* Modifica account
+* Gestione password
+* Creazione/eliminazione post
+* Aggiunta/rimozione like al post
+* Aggiungi/rimuovi commento
+
 * Utente
     - [ ] Gestione Account
         - [ ] Crea
@@ -34,36 +42,33 @@ Dubbi e consigli su foto e video
 * Commento
     - [ ] Gestione Commento
         - [ ] Crea
-        - [ ] Likes
         - [ ] Elimina
 
 ## Entità
 * Utente (fotografo/Videografo)
-    * nickName (public)
+    * nickName (PK)
     * nome
     * cognome 
     * password
     * dataDiNascita
     * località
-    * sesso (gender idk)
+    * sesso 
     * likes
     * lavoro
     * n° post
  
 * Post
+    * id_post (PK)
     * utente
     * file (foto/video)
     * likes
     * commenti
-    * preset (if you want)
+    * preset 
 
 * Commento
+    * id_commento (PK)
     * utente
 
 * Likes
+    * id_like (PK)
     * utente
-
-<!--
-## WireFrame Mockup
-<a target="_blank" href="https://www.figma.com/file/FvF1UrD3IYHjHBvuA3CSqv/Fotorum?type=design&node-id=0%3A1&mode=design&t=lhSUObwrHvT3MRQy-1"></a>
--->
