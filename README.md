@@ -73,4 +73,7 @@ Dubbi e consigli su foto e video
     * id_like (PK)
     * utente
 
+# Schema E/R
 ![PerMasturbianni](https://github.com/VolpiSte/ProgQuinta/assets/101709267/96f2c5aa-9980-47d8-84c3-ed0d2c1503e8)
+# Schema Relazionale
+
