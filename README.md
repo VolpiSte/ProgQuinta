@@ -53,7 +53,7 @@ Dubbi e consigli su foto e video
     * dataDiNascita
     * località
     * sesso 
-    * likes
+    * n° likes
     * lavoro
     * n° post
  
@@ -67,13 +67,18 @@ Dubbi e consigli su foto e video
 
 * Commento
     * id_commento (PK)
+    * post
     * utente
 
-* Likes
+* Like
     * id_like (PK)
     * utente
 
 # Schema E/R
-![PerMasturbianni](https://github.com/VolpiSte/ProgQuinta/assets/101709267/96f2c5aa-9980-47d8-84c3-ed0d2c1503e8)
-# Schema Relazionale
+![PerMasturbianni](https://github.com/VolpiSte/ProgQuinta/assets/101709267/b2eb8cbe-e316-4c6d-a6e2-cc361534efea)
 
+# Schema Relazionale
+Utente (_nickName_ , nome, cognome, password, dataDiNascita, località, sesso, lavoro, n°likes, n°Post)
+Post (_id_post_, file, preset, _utente_nickname_)
+Commento (_id_commento_, _post_id_post_, _utente_nickname_)
+Like (_id_like_, _utente_nickname_)
