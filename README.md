@@ -81,7 +81,7 @@ Dubbi e consigli su foto e video
 Account (<ins>nickName</ins>, nome, cognome, password, dataDiNascita, località, sesso, lavoro, n°likes, n°Post) <br>
 Post (<ins>id_post</ins>, file, preset, <ins>account_nickname</ins>) <br>
 Commento (<ins>id_commento</ins>, <ins>post_id_post</ins>, <ins>account_nickname</ins>) <br>
-Like (<ins>id_like</ins>, <ins>account_nickname</ins>) <br>
+Like (<ins>id_like</ins>, <ins>id_post</ins>, <ins>account_nickname</ins>) <br>
 
 # Mockup
 ![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/9bebc9cd-a83b-454e-a622-d8565fa3110d)
