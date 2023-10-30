@@ -16,6 +16,7 @@ Dubbi e consigli su foto e video
 * Creazione/eliminazione post
 * Aggiunta/rimozione like al post
 * Aggiungi/rimuovi commento
+* Ricerca Account
 
 * Account
     - [ ] Gestione Account
