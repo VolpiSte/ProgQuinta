@@ -11,12 +11,16 @@ Dubbi e consigli su foto e video
   
 ## Funzionalità 
 * Creazione/eliminazione account
-* Modifica account
+* Modifica account (informazioni)
 * Gestione password
 * Creazione/eliminazione post
 * Aggiunta/rimozione like al post
 * Aggiungi/rimuovi commento
 * Ricerca Account
+* Visualizzazione Account altrui
+* Viusalizzazione foto
+* Visualizzazione post (personale e altrui)
+* Scaricare preset
 
 * Account
     - [ ] Gestione Account
