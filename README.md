@@ -48,6 +48,7 @@ Dubbi e consigli su foto e video
 * Commento
     - [ ] Gestione Commento
         - [ ] Crea
+          - [ ] Scrivi
         - [ ] Elimina
 
 ## Entità
@@ -77,6 +78,7 @@ Dubbi e consigli su foto e video
     * id_commento (PK)
     * post
     * account
+    * testo
 
 * Like
     * id_like (PK)
@@ -89,7 +91,7 @@ Dubbi e consigli su foto e video
 # Schema Relazionale
 Account (<ins>nickName</ins>, nome, cognome, email, password, dataDiNascita, località, sesso, lavoro, n°likes, n°Post, fotoProfilo) <br>
 Post (<ins>id_post</ins>, file, preset, <ins>account_nickname</ins>) <br>
-Commento (<ins>id_commento</ins>, <ins>post_id_post</ins>, <ins>account_nickname</ins>) <br>
+Commento (<ins>id_commento</ins>, <ins>post_id_post</ins>, <ins>account_nickname</ins>, testo) <br>
 Like (<ins>id_like</ins>, <ins>id_post</ins>, <ins>account_nickname</ins>) <br>
 
 # Mockup
