@@ -11,7 +11,7 @@ Dubbi e consigli su foto e video
   
 ## Funzionalità 
 * Creazione/eliminazione account
-* Modifica account (informazioni)
+* Modifica account (informazioni, foto profilo)
 * Gestione password
 * Creazione/eliminazione post
 * Aggiunta/rimozione like al post
@@ -58,10 +58,11 @@ Dubbi e consigli su foto e video
     * password
     * dataDiNascita
     * località
-    * sesso 
-    * n° likes
+    * sesso
     * lavoro
+    * n° likes
     * n° post
+    * fotoProfilo
  
 * Post
     * id_post (PK)
@@ -81,10 +82,10 @@ Dubbi e consigli su foto e video
     * account
 
 # Schema E/R
-![fatto](https://github.com/VolpiSte/ProgQuinta/assets/101709267/382e1b97-c966-4aac-bb1e-3bcdd258b056)
+![fatto](https://github.com/VolpiSte/ProgQuinta/assets/101709267/bde99cd0-470c-4654-ab38-26a9fd335961)
 
 # Schema Relazionale
-Account (<ins>nickName</ins>, nome, cognome, email, password, dataDiNascita, località, sesso, lavoro, n°likes, n°Post) <br>
+Account (<ins>nickName</ins>, nome, cognome, email, password, dataDiNascita, località, sesso, lavoro, n°likes, n°Post, fotoProfilo) <br>
 Post (<ins>id_post</ins>, file, preset, <ins>account_nickname</ins>) <br>
 Commento (<ins>id_commento</ins>, <ins>post_id_post</ins>, <ins>account_nickname</ins>) <br>
 Like (<ins>id_like</ins>, <ins>id_post</ins>, <ins>account_nickname</ins>) <br>
