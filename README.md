@@ -92,6 +92,11 @@ Commento (<ins>id_commento</ins>, <ins>post_id_post</ins>, <ins>account_nickname
 Like (<ins>id_like</ins>, <ins>id_post</ins>, <ins>account_nickname</ins>) <br>
 
 # Mockup
-![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/9bebc9cd-a83b-454e-a622-d8565fa3110d)
-![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/471cd905-7c9e-4a5b-9ed6-da39b0ec7b98)
+![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/d015c208-8c0c-44a0-94e5-40324bdb37ea)
+![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/d997f905-613b-484c-b405-e1fbdadee422)
+![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/b6e1315b-208b-4f8b-9422-3886730f75bd)
+![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/eabee6f7-522e-449f-8341-0862aad180b0)
+![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/4d9cbbfa-7334-49d0-86dd-534f6af02708)
+![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/51c09af7-66f0-4a46-9f23-cbb888db8af8)
+![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/75a31dee-d88a-41b4-a70c-e4ed72cf6fee)
 ![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/3aa77d3f-5cfe-415b-8251-56b0e5c9b734)
