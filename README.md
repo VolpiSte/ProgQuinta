@@ -28,6 +28,7 @@ Dubbi e consigli su foto e video
         - [ ] Posta
         - [ ] Modifica
             - [ ] Descrizione
+            - [ ] Foto profilo
         - [ ] Gestione Password
             - [ ] Crea
             - [ ] Password Dimenticata (servizio recupero password)
