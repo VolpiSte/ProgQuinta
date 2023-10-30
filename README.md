@@ -48,7 +48,8 @@ Dubbi e consigli su foto e video
 * Account (fotografo/Videografo)
     * nickName (PK)
     * nome
-    * cognome 
+    * cognome
+    * email
     * password
     * dataDiNascita
     * località
