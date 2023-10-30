@@ -83,7 +83,8 @@ Dubbi e consigli su foto e video
     * account
 
 # Schema E/R
-![fatto](https://github.com/VolpiSte/ProgQuinta/assets/101709267/bde99cd0-470c-4654-ab38-26a9fd335961)
+![fatto](https://github.com/VolpiSte/ProgQuinta/assets/101709267/39f6936a-030b-4883-bdc1-5bcb03a74872)
+
 
 # Schema Relazionale
 Account (<ins>nickName</ins>, nome, cognome, email, password, dataDiNascita, località, sesso, lavoro, n°likes, n°Post, fotoProfilo) <br>
