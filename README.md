@@ -75,7 +75,7 @@ Dubbi e consigli su foto e video
     * account
 
 # Schema E/R
-![PerMasturbianni](https://github.com/VolpiSte/ProgQuinta/assets/101709267/b2eb8cbe-e316-4c6d-a6e2-cc361534efea)
+![fatto](https://github.com/VolpiSte/ProgQuinta/assets/101709267/531f02f1-f36d-42c7-a116-ad4fcfa794dc)
 
 # Schema Relazionale
 Account (<ins>nickName</ins>, nome, cognome, password, dataDiNascita, località, sesso, lavoro, n°likes, n°Post) <br>
