@@ -75,7 +75,7 @@ Dubbi e consigli su foto e video
     * file (foto/video)
     * likes
     * commenti
-    * preset 
+    * preset (file di impostazioni sulle specifiche di un'immagine)
 
 * Commento
     * id_commento (PK)
