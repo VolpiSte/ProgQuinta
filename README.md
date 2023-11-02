@@ -1,4 +1,7 @@
 # Fotorum
+Target: Persone che vogliono migliorare le tecniche di fotografia/videografia e che in generale si incuriosiscono a questo mondo
+Problema che risolve: Persona che non ha idea o ha idee non del tutto chiare su come Fotografare/Videografare un qualsiasi momento personale/pubblico
+
 ## Descrizione
 Webapp di diffusione e condivisione di informazioni/preset e tecniche di fotografia e videografia <br>
 ## Problema che risolve 
