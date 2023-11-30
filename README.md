@@ -106,3 +106,49 @@ Like (<ins>id_like</ins>, <ins>id_post</ins>, <ins>account_nickname</ins>) <br>
 ![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/51c09af7-66f0-4a46-9f23-cbb888db8af8)
 ![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/75a31dee-d88a-41b4-a70c-e4ed72cf6fee)
 ![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/3aa77d3f-5cfe-415b-8251-56b0e5c9b734)
+
+
+
+
+
+
+
+
+
+
+# Crea tabelle
+CREATE TABLE Account (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    name TEXT(42),
+    surname TEXT(26),
+    email TEXT,
+    dateBorn DATETIME,
+    location TEXT,
+    sex INTEGER,
+    work TEXT,
+    photo BLOB
+);
+
+CREATE TABLE Post (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    photo BLOB,
+    file BLOB,
+    account_id INTEGER,
+    FOREIGN KEY (account_id) REFERENCES Account(id)
+);
+
+CREATE TABLE Likes (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    post_id INTEGER,
+    FOREIGN KEY (post_id) REFERENCES Post(id)
+);
+
+CREATE TABLE Comment (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    texto TEXT,
+    post_id INTEGER,
+    account_id INTEGER,
+    FOREIGN KEY (post_id) REFERENCES Post(id),
+    FOREIGN KEY (account_id) REFERENCES Account(id)
+);
+
