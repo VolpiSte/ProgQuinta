@@ -27,7 +27,7 @@ Dubbi e consigli su foto e video
 
 * Account
     - [ ] Gestione Account
-        - [ ] Crea
+        - [x] Crea
         - [ ] Posta
         - [ ] Modifica
             - [ ] Descrizione
@@ -53,7 +53,10 @@ Dubbi e consigli su foto e video
         - [ ] Crea
           - [ ] Scrivi
         - [ ] Elimina
-
+* Likes
+    - [ ] Gestione Like
+      - [ ] Aggiungi
+      - [ ] Rimuovi
 ## Entità
 * Account (fotografo/Videografo)
     * nickName (PK)
@@ -116,39 +119,42 @@ Like (<ins>id_like</ins>, <ins>id_post</ins>, <ins>account_nickname</ins>) <br>
 
 
 
-# Crea tabelle
+# Crea tabelle all'interno del database (phpMyAdmin in XAMPP)
 CREATE TABLE Account (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    name TEXT(42),
-    surname TEXT(26),
-    email TEXT,
+    name VARCHAR(42),
+    surname VARCHAR(26),
+    nickname VARCHAR(255) UNIQUE CHECK (CHAR_LENGTH(nickname) >= 4),
+    email VARCHAR(255) UNIQUE,
+    password TEXT,
     dateBorn DATETIME,
-    location TEXT,
+    location VARCHAR(255),
     sex INTEGER,
-    work TEXT,
-    photo BLOB
+    work VARCHAR(255),
+    role BOOLEAN,
+    photo VARCHAR(255) NULL
 );
 
 CREATE TABLE Post (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     photo BLOB,
-    file BLOB,
+    file BLOB, 
+    testo TEXT,
     account_id INTEGER,
     FOREIGN KEY (account_id) REFERENCES Account(id)
 );
 
 CREATE TABLE Likes (
-    id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    post_id INTEGER,
+    id INTEGER PRIMARY KEY AUTO_INCREMENT, 
+    post_id INTEGER, 
     FOREIGN KEY (post_id) REFERENCES Post(id)
 );
 
 CREATE TABLE Comment (
-    id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    texto TEXT,
+    id INTEGER PRIMARY KEY AUTO_INCREMENT, 
+    texto TEXT, 
     post_id INTEGER,
-    account_id INTEGER,
-    FOREIGN KEY (post_id) REFERENCES Post(id),
+    account_id INTEGER, 
+    FOREIGN KEY (post_id) REFERENCES Post(id), 
     FOREIGN KEY (account_id) REFERENCES Account(id)
 );
-
