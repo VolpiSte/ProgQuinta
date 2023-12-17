@@ -17,9 +17,8 @@
     // Finally, destroy the session.
     session_destroy();
 
-    // Invalidate the user_id and email_or_nickname cookies
-    setcookie('user_id', '', time() - 3600, "/");
-    setcookie('email_or_nickname', '', time() - 3600, "/");
+    // Invalidate the nickname cookie
+    setcookie('nickname', '', time() - 3600, "/");
 
     // Redirect to the login page
     header("Location: login.php");

@@ -23,10 +23,10 @@
     <body>
         <h2>Login</h2>
         <form method="post" action="loginControl.php">
-            <label>Email or Nickname:</label>
-            <input type="text" name="email_or_nickname" required value="<?php echo isset($_COOKIE['email_or_nickname']) ? $_COOKIE['email_or_nickname'] : ''; ?>"><br>
-            <label>Password:</label>
-            <input type="password" name="password" required><br>
+        <label>Email or Nickname:</label>
+        <input type="text" name="email_or_nickname" required value="<?php echo isset($_COOKIE['email_or_nickname']) ? $_COOKIE['email_or_nickname'] : ''; ?>"><br>
+        <label>Password:</label>
+        <input type="password" name="password" required><br>
             <?php
                 include 'errorCodes.php';
 

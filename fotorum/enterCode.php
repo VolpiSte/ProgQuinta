@@ -6,42 +6,46 @@ include 'errorCodes.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $enteredCode = $_POST['code'];
 
-    // Verifica se la variabile di sessione è impostata
+    // Check if the session variable is set
     if (!isset($_SESSION['email'])) {
         header("Location: registerConfirm.php?error=9");
         exit();
     }
 
-    // Retrieve the tempCode and dataCode from the database for the current user
-    $stmt = $conn->prepare("SELECT tempCode, dataCode FROM Account WHERE email = ?");
+    // Retrieve the verification_code and expiration_date from the database for the current user
+    $stmt = $conn->prepare("SELECT verification_code, expiration_date FROM Verify INNER JOIN Account ON Verify.account_id = Account.id WHERE Account.email = ?");
     $stmt->bind_param("s", $_SESSION['email']);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // Verifica se la query ha restituito un risultato
+    // Check if the query returned a result
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
 
-        // Compare the entered code with the tempCode
-        if ($enteredCode == $row['tempCode']) {
-            // Check if it's been more than 1 minute since the code was generated
+        // Compare the entered code with the verification_code
+        if ($enteredCode == $row['verification_code']) {
+            // Check if the code has expired
             $currentDateTime = new DateTime();
-            $dataCodeDateTime = new DateTime($row['dataCode']);
-            $interval = $currentDateTime->diff($dataCodeDateTime);
+            $expirationDateTime = new DateTime($row['expiration_date']);
 
-            if ($interval->i > 1) {
-                // If it's been more than 1 minute, delete the account
+            if ($currentDateTime > $expirationDateTime) {
+                // If the code has expired, delete the account
                 $stmt = $conn->prepare("DELETE FROM Account WHERE email = ?");
                 $stmt->bind_param("s", $_SESSION['email']);
                 $stmt->execute();
 
                 header("Location: register.php?error=2");
             } else {
-                // If it's been less than 1 minute, update the validate field to TRUE
-                $stmt = $conn->prepare("UPDATE Account SET validate = TRUE WHERE email = ?");
+                // If the code has not expired, set the verified field to true for the account and delete the verification_code and expiration_date from the Verify table
+                $stmt = $conn->prepare("UPDATE Account SET verified = TRUE WHERE email = ?");
                 $stmt->bind_param("s", $_SESSION['email']);
                 $stmt->execute();
 
+                $stmt = $conn->prepare("DELETE FROM Verify WHERE account_id = (SELECT id FROM Account WHERE email = ?)");
+                $stmt->bind_param("s", $_SESSION['email']);
+                $stmt->execute();
+
+                // Redirect to the login page
                 header("Location: login.php");
             }
         } else {
@@ -49,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: registerConfirm.php?error=9");
         }
     } else {
-        // Utente non trovato nel database
+        // User not found in the database
         header("Location: registerConfirm.php?error=9");
     }
 }

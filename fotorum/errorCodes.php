@@ -9,5 +9,8 @@ $errorCodes = [
     '7' => 'Only .ico files are allowed',
     '8' => 'Image dimensions should not exceed 256x256 pixels',
     '9' => 'Incorrect code',
+    '10' => 'You must be at least 16 years old to register',
+    '11' => 'Date of birth cannot be in the future',
+    
 ];
 ?>

@@ -4,23 +4,22 @@ CREATE TABLE Account (
     surname VARCHAR(26),
     nickname VARCHAR(255) UNIQUE CHECK (CHAR_LENGTH(nickname) >= 4),
     email VARCHAR(255) UNIQUE,
-    password TEXT,
+    password VARCHAR(128),
+    salt VARCHAR(255),
     dateBorn DATE,
     location VARCHAR(255),
-    sex INTEGER,
+    sex VARCHAR(255),
     work VARCHAR(255),
-    role INTEGER 0,
+    role INTEGER DEFAULT 0,
     photo VARCHAR(255) NULL,
-    tempCode VARCHAR(8),
-    dataCode DATETIME NULL,
-    validate BOOLEAN
+    verified BOOLEAN DEFAULT FALSE
 );
     
 CREATE TABLE Post (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     photo BLOB,
-    file BLOB, 
-    testo TEXT,
+    file BLOB NULL, 
+    text TEXT,
     account_id INTEGER,
     FOREIGN KEY (account_id) REFERENCES Account(id)
 );
@@ -33,15 +32,17 @@ CREATE TABLE Likes (
 
 CREATE TABLE Comment (
     id INTEGER PRIMARY KEY AUTO_INCREMENT, 
-    texto TEXT, 
+    text TEXT, 
     post_id INTEGER,
     account_id INTEGER, 
     FOREIGN KEY (post_id) REFERENCES Post(id), 
     FOREIGN KEY (account_id) REFERENCES Account(id)
 );
 
-/*
-Unici 2 tipi di file accettati (forse uno .zip)
-.xmp
-.lrtemplate
-*/
+CREATE TABLE Verify (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    account_id INTEGER UNIQUE,
+    verification_code VARCHAR(8),
+    expiration_date DATETIME,
+    FOREIGN KEY (account_id) REFERENCES Account(id)
+);
