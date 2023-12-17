@@ -4,8 +4,10 @@ Problema che risolve: Persona che non ha idea o ha idee non del tutto chiare su 
 
 ## Descrizione
 Webapp di diffusione e condivisione di informazioni/preset e tecniche di fotografia e videografia <br>
+
 ## Problema che risolve 
 Dubbi e consigli su foto e video
+
 ## Tecnologie usate
 * HTML
 * JavaScript
@@ -110,13 +112,11 @@ Like (<ins>id_like</ins>, <ins>id_post</ins>, <ins>account_nickname</ins>) <br>
 ![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/75a31dee-d88a-41b4-a70c-e4ed72cf6fee)
 ![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/3aa77d3f-5cfe-415b-8251-56b0e5c9b734)
 
-
-
-
-
-
-
-
+# PER FARLO FUNZIONARE
+- Avere XAMPP in locale
+- Creare un database nominato "fotorum"
+- usare il .sql e creare le tabelle
+- Poi puoi utilizzare tutte le funzionalità che ho implementato
 
 
 # Crea tabelle all'interno del database (phpMyAdmin in XAMPP)
@@ -137,8 +137,8 @@ CREATE TABLE Account (
 
 CREATE TABLE Post (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    photo BLOB,
-    file BLOB, 
+    photo VARCHAR(255),
+    file VARCHAR(255) NULL, 
     testo TEXT,
     account_id INTEGER,
     FOREIGN KEY (account_id) REFERENCES Account(id)
