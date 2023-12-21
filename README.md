@@ -35,7 +35,7 @@ Dubbi e consigli su foto e video
             - [x] Descrizione
             - [x] Foto profilo
         - [ ] Gestione Password
-            - [ ] Crea
+            - [x] Verifica
             - [ ] Password Dimenticata (servizio recupero password)
         - [ ] Elimina
 * Post
