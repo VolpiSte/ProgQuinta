@@ -11,6 +11,7 @@
         '9' => 'Incorrect code',
         '10' => 'You must be at least 16 years old to register',
         '11' => 'Date of birth cannot be in the future',
-        
+        '12' => 'New password must be different from the old password',
+        '13' => 'Failed to create post due to an unknown error',
     ];
 ?>

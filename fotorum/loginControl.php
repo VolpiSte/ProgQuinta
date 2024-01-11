@@ -4,9 +4,9 @@
     include 'errorCodes.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $email_or_nickname = $_POST['email_or_nickname'];
+        $email_or_nickname = strip_tags($_POST['email_or_nickname']);
         $password = $_POST['password'];
-
+    
         // Retrieve the salt, hashed password and role from the database
         $stmt = $conn->prepare("SELECT * FROM Account WHERE email = ? OR nickname = ?");
         $stmt->bind_param("ss", $email_or_nickname, $email_or_nickname);

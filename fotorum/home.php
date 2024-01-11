@@ -33,10 +33,8 @@
                 exit;
             }
         ?>
-        <!--
         <a href="pUtente.php">View User Information</a><br>
         <a href="post.php">Create Post</a><br>
-        -->
         <a href=""></a><br>
         <a href="logout.php">Logout</a><br>
 

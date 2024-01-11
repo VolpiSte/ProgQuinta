@@ -4,22 +4,22 @@
     include 'errorCodes.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $name = $_POST['name'];
-        $surname = $_POST['surname'];
-        $nickname = $_POST['nickname'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $confirm_password = $_POST['confirm_password'];
-        $dateBorn = $_POST['dateBorn'];
-        $location = $_POST['location'];
-        $sex = $_POST['sex'];
-        $work = $_POST['work'];
+        $name = strip_tags($_POST['name']);
+        $surname = strip_tags($_POST['surname']);
+        $nickname = strip_tags($_POST['nickname']);
+        $email = strip_tags($_POST['email']);
+        $password = strip_tags($_POST['password']);
+        $confirm_password = strip_tags($_POST['confirm_password']);
+        $dateBorn = strip_tags($_POST['dateBorn']);
+        $location = strip_tags($_POST['location']);
+        $sex = strip_tags($_POST['sex']);
+        $work = strip_tags($_POST['work']);
         $role = 0;
         $photo = $_FILES['photo']['tmp_name'];
 
         // If "sex" is "Other", replace it with the value from the "other-sex" input
         if (strtolower($sex) === 'other') {
-            $sex = $_POST['other-sex'];
+            $sex = strip_tags($_POST['other-sex']);
         }
 
         // Check if the user is at least 16 years old and not born in the future

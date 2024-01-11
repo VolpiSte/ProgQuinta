@@ -17,8 +17,8 @@ CREATE TABLE Account (
     
 CREATE TABLE Post (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    photo BLOB,
-    file BLOB NULL, 
+    photo VARCHAR(255),
+    file VARCHAR(255) NULL, 
     text TEXT,
     account_id INTEGER,
     FOREIGN KEY (account_id) REFERENCES Account(id)
