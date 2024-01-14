@@ -13,8 +13,9 @@
         $dateBorn = strip_tags($_POST['dateBorn']);
         $location = strip_tags($_POST['location']);
         $sex = strip_tags($_POST['sex']);
+        $pronoun = strip_tags($_POST['pronoun']);
         $work = strip_tags($_POST['work']);
-        $role = 0;
+        $role = 0; // Default role is 'user'
         $photo = $_FILES['photo']['tmp_name'];
 
         // If "sex" is "Other", replace it with the value from the "other-sex" input
@@ -74,8 +75,8 @@
         $hashed_password = hash('sha3-512', $salt . $password);
 
         // Insert new user into the database
-        $stmt = $conn->prepare("INSERT INTO Account (name, surname, nickname, email, password, salt, dateBorn, location, sex, work, role, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssssssssss", $name, $surname, $nickname, $email, $hashed_password, $salt, $dateBorn, $location, $sex, $work, $role, $photo_path);
+        $stmt = $conn->prepare("INSERT INTO Account (name, surname, nickname, email, password, salt, dateBorn, sex, pronoun, location, work, role, photo) VALUES (?, ?, ?, ?, ?, ?, ?, (SELECT id FROM Sex WHERE sex = ?), (SELECT id FROM Pronoun WHERE pronoun = ?), ?, ?, (SELECT id FROM Role WHERE role = ?), ?)");
+        $stmt->bind_param("sssssssssssss", $name, $surname, $nickname, $email, $hashed_password, $salt, $dateBorn, $sex, $pronoun, $location, $work, $role, $photo_path);
         $stmt->execute();
 
         // Get the id of the newly created account

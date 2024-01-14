@@ -31,11 +31,12 @@
                     setcookie('email_or_nickname', $email_or_nickname, time() + (86400), "/"); // 86400 = 1 day
 
                     // Check the user's role and redirect them to the appropriate page
-                    if ($_SESSION['role'] == '0') {
-                        header("Location: home.php");
-                    } else {
-                        // If the role is not '0', redirect back to the login page
+                    if ($_SESSION['role'] == 3) {
                         header("Location: login.php?error=8");
+                    } else if ($_SESSION['role'] == 4) {
+                        header("Location: login.php?error=14");
+                    } else {
+                        header("Location: home.php");
                     }
                 } else {
                     // If the password is incorrect, redirect back to the login page with an error message

@@ -40,13 +40,27 @@
             <label>Location:</label>
             <input type="text" name="location" placeholder="location" required><br>
             <label>Sex:</label>
-            <input list="sex-options" id="sex" name="sex" placeholder="sex" required >
-            <datalist id="sex-options" >
-            </datalist><br>
-            <div id="other-input" style="display: none;">
-                <label>Please specify:</label>
-                <input type="text" name="other-sex" placeholder="Specify your gender"><br>
-            </div>
+            <select id="sex" name="sex" required>
+                <?php
+                    include 'connection.php';
+
+                    // Fetch the options for the Sex field
+                    $result = $conn->query("SELECT id, sex FROM Sex");
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<option value='" . $row['id'] . "'>" . $row['sex'] . "</option>";
+                    }
+                ?>
+            </select><br>
+            <label>Pronoun:</label>
+            <select id="pronoun" name="pronoun" required>
+                <?php
+                    // Fetch the options for the Pronoun field
+                    $result = $conn->query("SELECT id, pronoun FROM Pronoun");
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<option value='" . $row['id'] . "'>" . $row['pronoun'] . "</option>";
+                    }
+                ?>
+            </select><br>
             <label>Work:</label>
             <input type="text" name="work" placeholder="work" required><br>
             <label>Photo:</label>
@@ -63,46 +77,5 @@
             <button type="submit">Register</button>
         </form>
         <p>Already have an account? <a href="login.php">Login</a></p>
-        <script>
-            window.onload = function() {
-                var sexInput = document.getElementById('sex');
-                var otherInput = document.getElementById('other-input');
-                var datalist = document.getElementById('sex-options');
-                var genders = [];
-
-                // Fetch the JSON file
-                fetch('genders.json')
-                    .then(response => response.json())
-                    .then(data => {
-                        genders = data;
-                        // Create an <option> for each item in the JSON file
-                        for (var i = 0; i < data.length; i++) {
-                            var option = document.createElement('option');
-                            option.value = data[i];
-                            datalist.appendChild(option);
-                        }
-                    });
-
-                sexInput.onchange = function() {
-                    if (sexInput.value.toLowerCase() === 'other') {
-                        otherInput.style.display = 'block';
-                    } else {
-                        otherInput.style.display = 'none';
-                        if (!genders.includes(sexInput.value)) {
-                            alert('Invalid gender. Please select a gender from the list or enter "Other".');
-                            sexInput.value = '';
-                        }
-                    }
-                }
-
-                // Prevent form submission if the gender is not in the JSON file and not "Other"
-                document.querySelector('form').onsubmit = function(e) {
-                    if (!genders.includes(sexInput.value) && sexInput.value.toLowerCase() !== 'other') {
-                        e.preventDefault();
-                        alert('Invalid gender. Please select a gender from the list or enter "Other".');
-                    }
-                }
-            }
-        </script>
     </body>
 </html>
