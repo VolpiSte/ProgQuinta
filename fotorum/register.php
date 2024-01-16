@@ -43,7 +43,6 @@
             <select id="sex" name="sex" required>
                 <?php
                     include 'connection.php';
-
                     // Fetch the options for the Sex field
                     $result = $conn->query("SELECT id, sex FROM Sex");
                     while ($row = $result->fetch_assoc()) {

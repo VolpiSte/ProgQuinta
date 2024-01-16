@@ -18,11 +18,6 @@
         $role = 0; // Default role is 'user'
         $photo = $_FILES['photo']['tmp_name'];
 
-        // If "sex" is "Other", replace it with the value from the "other-sex" input
-        if (strtolower($sex) === 'other') {
-            $sex = strip_tags($_POST['other-sex']);
-        }
-
         // Check if the user is at least 16 years old and not born in the future
         $dateBornDateTime = new DateTime($dateBorn);
         $currentDateTime = new DateTime();
@@ -74,8 +69,8 @@
         // Combine the salt with the password and hash the result
         $hashed_password = hash('sha3-512', $salt . $password);
 
-        // Insert new user into the database
-        $stmt = $conn->prepare("INSERT INTO Account (name, surname, nickname, email, password, salt, dateBorn, sex, pronoun, location, work, role, photo) VALUES (?, ?, ?, ?, ?, ?, ?, (SELECT id FROM Sex WHERE sex = ?), (SELECT id FROM Pronoun WHERE pronoun = ?), ?, ?, (SELECT id FROM Role WHERE role = ?), ?)");
+        
+        $stmt = $conn->prepare("INSERT INTO Account (name, surname, nickname, email, password, salt, dateBorn, sex, pronoun, location, work, role, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT id FROM Role WHERE role = ?), ?)");
         $stmt->bind_param("sssssssssssss", $name, $surname, $nickname, $email, $hashed_password, $salt, $dateBorn, $sex, $pronoun, $location, $work, $role, $photo_path);
         $stmt->execute();
 

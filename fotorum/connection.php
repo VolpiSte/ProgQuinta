@@ -7,7 +7,8 @@
     $conn = new mysqli($servername, $username, $password, $database);
 
     if ($conn->connect_error) {
-    echo("Connessione fallita: ".$connessione->connect_error.".");
-    exit();
+        echo("Connessione fallita: " . $conn->connect_error . ".");
+        exit();
     }
+    
 ?>
