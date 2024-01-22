@@ -13,6 +13,7 @@ Dubbi e consigli su foto e video
 * JavaScript
 * MySQL
 * php
+* Send Grid
   
 ## Funzionalità 
 * Creazione/eliminazione account
