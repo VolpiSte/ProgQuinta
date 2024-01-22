@@ -32,31 +32,40 @@
             <label>Email:</label>
             <input type="email" name="email" placeholder="email" required><br>
             <label>Password:</label>
-            <input type="password" name="password" placeholder="password" required><br>
+            <input type="password" id="password" name="password" placeholder="password" required><br>
+
             <label>Confirm Password:</label>
-            <input type="password" name="confirm_password" placeholder="Confirm your password" required><br>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required><br>
+
+            <input type="checkbox" onclick="togglePasswordVisibility()">Show Passwords<br>
+
             <label>Date of Birth:</label>
             <input type="date" name="dateBorn" required><br>
             <label>Location:</label>
             <input type="text" name="location" placeholder="location" required><br>
             <label>Sex:</label>
-            <select id="sex" name="sex" required>
+            <input list="sexes" name="sex" value="Male" required>
+            <datalist id="sexes">
                 <?php
                     include 'connection.php';
                     // Fetch the options for the Sex field
-                    $result = $conn->query("SELECT id, sex FROM Sex");
+                    $result = $conn->query("SELECT id, sex FROM Sex ORDER BY sex");
                     while ($row = $result->fetch_assoc()) {
-                        echo "<option value='" . $row['id'] . "'>" . $row['sex'] . "</option>";
+                        $sex = strip_tags($row['sex']);
+                        echo "<option value='" . $sex . "'>";
                     }
                 ?>
-            </select><br>
+            </datalist><br>
             <label>Pronoun:</label>
             <select id="pronoun" name="pronoun" required>
                 <?php
                     // Fetch the options for the Pronoun field
                     $result = $conn->query("SELECT id, pronoun FROM Pronoun");
                     while ($row = $result->fetch_assoc()) {
-                        echo "<option value='" . $row['id'] . "'>" . $row['pronoun'] . "</option>";
+                        $id = strip_tags($row['id']);
+                        $pronoun = strip_tags($row['pronoun']);
+                        $selected = $pronoun == 'he' ? 'selected' : '';
+                        echo "<option value='" . $id . "' " . $selected . ">" . $pronoun . "</option>";
                     }
                 ?>
             </select><br>
@@ -77,4 +86,19 @@
         </form>
         <p>Already have an account? <a href="login.php">Login</a></p>
     </body>
+
+    <script>
+            function togglePasswordVisibility() {
+                var passwordInput = document.getElementById("password");
+                var confirmPasswordInput = document.getElementById("confirm_password");
+                
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    confirmPasswordInput.type = "text";
+                } else {
+                    passwordInput.type = "password";
+                    confirmPasswordInput.type = "password";
+                }
+            }
+            </script>
 </html>

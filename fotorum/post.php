@@ -6,6 +6,7 @@
     </head>
     <body>
         <?php
+        
         include 'errorCodes.php';
         if (isset($_GET['error'])) {
             $error_code = $_GET['error'];
@@ -20,5 +21,8 @@
             Text: <textarea name="text"></textarea><br>
             <input type="submit" value="Create Post">
         </form>
+        <a href="home.php">Home</a><br>
+        <a href="pUtente.php">Personal Profile</a><br>
+        <a href="logout.php">Logout</a><br>
     </body>
 </html>

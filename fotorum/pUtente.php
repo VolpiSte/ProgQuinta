@@ -28,6 +28,14 @@
         header("Location: login.php");
         exit();
     }
+
+        // Fetch user posts
+        $stmtPosts = $conn->prepare('SELECT * FROM Post WHERE account_id = ?');
+        $stmtPosts->bind_param('i', $user['id']);
+        $stmtPosts->execute();
+        $resultPosts = $stmtPosts->get_result();
+    $posts = $resultPosts->fetch_all(MYSQLI_ASSOC);
+
 ?>
 
 <div id="userInfo">
@@ -73,6 +81,39 @@
     </form>
 </div>
 
+<!-- Display user posts -->
+<div id="userPosts">
+    <h2>User Posts:</h2>
+    <?php
+    if (empty($posts)) {
+        echo "<p>No posts found.</p>";
+    } else {
+        foreach ($posts as $post) {
+            echo "<div class='post'>";
+            //echo "<p>Post ID: " . htmlspecialchars($post['id'], ENT_QUOTES, 'UTF-8') . "</p>";
+            echo "<p>Text: " . htmlspecialchars($post['text'], ENT_QUOTES, 'UTF-8') . "</p>";
+
+            // Display photo if available
+            if (!empty($post['photo'])) {
+                echo "<img src='" . htmlspecialchars($post['photo'], ENT_QUOTES, 'UTF-8') . "' alt='Post Photo'>";
+            }
+
+            // You can display other post information as needed
+            echo "</div>";
+        }
+    }
+    ?>
+</div>
+
+
+<div id="menu">
+    <a href="resetPassword.php">Reset PASSWORD</a><br>
+    <a href="post.php">Create Post</a><br>
+    <a href="home.php">Home</a><br>
+    <a href="logout.php">Logout</a><br>
+</div>
+
+
 <!-- JavaScript -->
 <script>
 document.getElementById('editButton').addEventListener('click', function() {
@@ -106,7 +147,7 @@ document.getElementById('updateForm').addEventListener('submit', function(event)
 
             // Aggiorna le informazioni visualizzate con quelle modificate
             document.getElementById('name').textContent = user.name;
-            document.getElementById('surname').textContent = user.surname;
+            document.getElementById('surname').textContent = user.surn3333333333333320ame;
             document.getElementById('location').textContent = user.location;
             document.getElementById('work').textContent = user.work;
             document.getElementById('sex').textContent = user.sex;
@@ -127,6 +168,4 @@ document.getElementById('cancelButton').addEventListener('click', function() {
     document.getElementById('userInfo').style.display = 'block';
     document.getElementById('editButton').style.display = 'block'; // Mostra nuovamente il pulsante "Edit"
 });
-
-
 </script>

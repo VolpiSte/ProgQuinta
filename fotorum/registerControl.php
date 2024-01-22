@@ -69,10 +69,26 @@
         // Combine the salt with the password and hash the result
         $hashed_password = hash('sha3-512', $salt . $password);
 
-        
-        $stmt = $conn->prepare("INSERT INTO Account (name, surname, nickname, email, password, salt, dateBorn, sex, pronoun, location, work, role, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT id FROM Role WHERE role = ?), ?)");
-        $stmt->bind_param("sssssssssssss", $name, $surname, $nickname, $email, $hashed_password, $salt, $dateBorn, $sex, $pronoun, $location, $work, $role, $photo_path);
+        // Fetch the sex ID based on the provided sex value
+        $stmt = $conn->prepare("SELECT id FROM Sex WHERE sex = ?");
+        $stmt->bind_param("s", $sex);
         $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows == 0) {
+            // Il valore di sex non esiste nella tabella Sex
+            header("Location: register.php?error=7");
+            exit();
+        }
+
+        $row = $result->fetch_assoc();
+        $sex_id = $row['id'];
+
+        // Ora puoi utilizzare $sex_id nella tua query di inserimento in Account
+        $stmt = $conn->prepare("INSERT INTO Account (name, surname, nickname, email, password, salt, dateBorn, sex, pronoun, location, work, role, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT id FROM Role WHERE role = ?), ?)");
+        $stmt->bind_param("sssssssssssss", $name, $surname, $nickname, $email, $hashed_password, $salt, $dateBorn, $sex_id, $pronoun, $location, $work, $role, $photo_path);
+        $stmt->execute();
+
 
         // Get the id of the newly created account
         $account_id = $conn->insert_id;

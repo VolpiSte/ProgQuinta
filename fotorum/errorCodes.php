@@ -14,6 +14,6 @@
         '12' => 'New password must be different from the old password',
         '13' => 'Failed to create post due to an unknown error',
         '14' => "You are not allowed to login, you are banned",
-        '15' => "Sex?",
+        '15' => "NO ACCOUNT",
     ];
 ?>

@@ -29,6 +29,7 @@
         <input type="password" name="password" required><br>
             <?php
                 include 'errorCodes.php';
+                include 'genders.php';
 
                 if (isset($_GET['error'])) {
                     $errorCode = $_GET['error'];
@@ -39,5 +40,6 @@
             <button type="submit">Login</button>
         </form>
         <p>Don't have an account? <a href="register.php">Register</a></p>
+        <br><br>
     </body>
 </html>
