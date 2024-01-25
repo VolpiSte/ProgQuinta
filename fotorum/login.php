@@ -38,7 +38,8 @@
                 }
             ?>
             <button type="submit">Login</button>
-        </form>
+        </form><br>
+        <p><a href="resetPassword.php">Password D</a></p>
         <p>Don't have an account? <a href="register.php">Register</a></p>
         <br><br>
     </body>

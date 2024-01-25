@@ -46,6 +46,8 @@
     <p>Work: <span id="work"><?php echo htmlspecialchars($user['work'], ENT_QUOTES, 'UTF-8'); ?></span></p>
     <p>Sex: <span id="sex"><?php echo htmlspecialchars($user['sex'], ENT_QUOTES, 'UTF-8'); ?></span></p>
     <p>Pronoun: <span id="pronoun"><?php echo htmlspecialchars($user['pronoun'], ENT_QUOTES, 'UTF-8'); ?></span></p>
+    <p>Image Profile:</p>
+    <img id="imageProfile" src="<?php echo htmlspecialchars($user['photo'], ENT_QUOTES, 'UTF-8'); ?>" alt="Profile Image">
 </div>
 <button id="editButton" type="button">Edit</button>
 
@@ -76,6 +78,8 @@
                 }
             ?>
         </select><br>
+        <label>Profile Image:</label>
+        <input type="file" id="editPhoto" name="photo"><br>
         <input type="submit" value="Update">
         <button type="button" id="cancelButton">Cancel</button>
     </form>
@@ -145,18 +149,19 @@ document.getElementById('updateForm').addEventListener('submit', function(event)
         if (this.status == 200) {
             var user = JSON.parse(this.responseText);
 
-            // Aggiorna le informazioni visualizzate con quelle modificate
+            // Update displayed information with edited ones
             document.getElementById('name').textContent = user.name;
-            document.getElementById('surname').textContent = user.surn3333333333333320ame;
+            document.getElementById('surname').textContent = user.surname;
             document.getElementById('location').textContent = user.location;
             document.getElementById('work').textContent = user.work;
             document.getElementById('sex').textContent = user.sex;
             document.getElementById('pronoun').textContent = user.pronoun;
+            document.getElementById('imageProfile').src = user.photo; // Update the profile image
 
-            // Nascondi il form di modifica e mostra nuovamente le informazioni
+            // Hide the edit form and display the information again
             document.getElementById('editForm').style.display = 'none';
             document.getElementById('userInfo').style.display = 'block';
-            document.getElementById('editButton').style.display = 'block'; // Mostra nuovamente il pulsante "Edit"
+            document.getElementById('editButton').style.display = 'block'; // Show the "Edit" button again
         }
     };
     xhr.send(formData);
