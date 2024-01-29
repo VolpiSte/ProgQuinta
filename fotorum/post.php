@@ -16,7 +16,7 @@
         }
         ?>
         <form action="postControl.php" method="post" enctype="multipart/form-data">
-            Photo: <input type="file" name="photo" accept="image/*"><br>
+            Photo: <input type="file" name="photo" accept="image/*" required><br>
             File: <input type="file" name="file" accept=".xmp,.dng,.lrtemplate"><br>
             Text: <textarea name="text"></textarea><br>
             <input type="submit" value="Create Post">

@@ -57,8 +57,36 @@
 
         // Handle photo upload
         if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
-            $photo_path = 'uploads/' . $_FILES['photo']['name'];
-            move_uploaded_file($_FILES['photo']['tmp_name'], $photo_path);
+            $photo_path = 'uploads/' . pathinfo($_FILES['photo']['name'], PATHINFO_FILENAME) . '.webp';
+
+            // Create an image resource from the uploaded file
+            $imageType = exif_imagetype($_FILES['photo']['tmp_name']);
+            switch ($imageType) {
+                case IMAGETYPE_JPEG:
+                    $image = imagecreatefromjpeg($_FILES['photo']['tmp_name']);
+                    break;
+                case IMAGETYPE_PNG:
+                    $image = imagecreatefrompng($_FILES['photo']['tmp_name']);
+                    break;
+                case IMAGETYPE_GIF:
+                    $image = imagecreatefromgif($_FILES['photo']['tmp_name']);
+                    break;
+                case IMAGETYPE_WEBP:
+                    if (function_exists('imagecreatefromwebp')) {
+                        $image = imagecreatefromwebp($_FILES['photo']['tmp_name']);
+                    } else {
+                        throw new Exception('WEBP support not enabled.');
+                    }
+                    break;
+                default:
+                    throw new Exception('Invalid image type.');
+            }
+
+            // Convert the image to WEBP and save it
+            imagewebp($image, $photo_path);
+
+            // Free up memory
+            imagedestroy($image);
         } else {
             $photo_path = NULL;
         }

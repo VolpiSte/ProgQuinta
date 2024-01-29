@@ -1,4 +1,7 @@
 <?php
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
     // Start the session
     session_start();
 
@@ -37,7 +40,28 @@
     $posts = $resultPosts->fetch_all(MYSQLI_ASSOC);
 
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal Profile</title>
+    <style>
+    .profile-photo {
+        max-width: 200px;  /* Or whatever width you want */
+        max-height: 200px; /* Or whatever height you want */
+        width: auto;
+        height: auto;
+    }
 
+    .post-photo {
+        max-width: 400px;  /* Or whatever width you want */
+        max-height: 300px; /* Or whatever height you want */
+        width: auto;
+        height: auto;
+    }
+    </style>
+</head>
+<body>
 <div id="userInfo">
     <!-- Visualizzazione delle informazioni -->
     <p>Name: <span id="name"><?php echo htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8'); ?></span></p>
@@ -47,13 +71,13 @@
     <p>Sex: <span id="sex"><?php echo htmlspecialchars($user['sex'], ENT_QUOTES, 'UTF-8'); ?></span></p>
     <p>Pronoun: <span id="pronoun"><?php echo htmlspecialchars($user['pronoun'], ENT_QUOTES, 'UTF-8'); ?></span></p>
     <p>Image Profile:</p>
-    <img id="imageProfile" src="<?php echo htmlspecialchars($user['photo'], ENT_QUOTES, 'UTF-8'); ?>" alt="Profile Image">
+    <img id="imageProfile" class="profile-photo" src="<?php echo htmlspecialchars($user['photo'], ENT_QUOTES, 'UTF-8'); ?>" alt="Profile Image">
 </div>
 <button id="editButton" type="button">Edit</button>
 
 <!-- Edit form (hidden by default) -->
 <div id="editForm" style="display: none;">
-    <form id="updateForm" method="POST">
+    <form id="updateForm" method="POST" enctype="multipart/form-data">
         Name: <input type="text" id="editName" name="name" value="<?php echo htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8'); ?>"><br>
         Surname: <input type="text" name="editSurname" value="<?php echo htmlspecialchars($user['surname'], ENT_QUOTES, 'UTF-8'); ?>"><br>
         Location: <input type="text" name="editLocation" value="<?php echo htmlspecialchars($user['location'], ENT_QUOTES, 'UTF-8'); ?>"><br>
@@ -94,15 +118,19 @@
     } else {
         foreach ($posts as $post) {
             echo "<div class='post'>";
-            //echo "<p>Post ID: " . htmlspecialchars($post['id'], ENT_QUOTES, 'UTF-8') . "</p>";
             echo "<p>Text: " . htmlspecialchars($post['text'], ENT_QUOTES, 'UTF-8') . "</p>";
 
             // Display photo if available
             if (!empty($post['photo'])) {
-                echo "<img src='" . htmlspecialchars($post['photo'], ENT_QUOTES, 'UTF-8') . "' alt='Post Photo'>";
+                echo "<img class='post-photo' src='" . htmlspecialchars($post['photo'], ENT_QUOTES, 'UTF-8') . "' alt='Post Photo'>";
             }
 
-            // You can display other post information as needed
+            // Add a form to post the post ID to vPost.php
+            echo "<form action='vPpost.php' method='post'>";
+            echo "<input type='hidden' name='post_id' value='" . $post['id'] . "'>";
+            echo "<input type='submit' value='View Post'>";
+            echo "</form>";
+
             echo "</div>";
         }
     }
@@ -147,8 +175,9 @@ document.getElementById('updateForm').addEventListener('submit', function(event)
     xhr.open('POST', 'pUtenteControl.php', true);
     xhr.onload = function() {
         if (this.status == 200) {
+            //console.log(this.responseText);
             var user = JSON.parse(this.responseText);
-
+            //console.log(user);
             // Update displayed information with edited ones
             document.getElementById('name').textContent = user.name;
             document.getElementById('surname').textContent = user.surname;
@@ -156,7 +185,8 @@ document.getElementById('updateForm').addEventListener('submit', function(event)
             document.getElementById('work').textContent = user.work;
             document.getElementById('sex').textContent = user.sex;
             document.getElementById('pronoun').textContent = user.pronoun;
-            document.getElementById('imageProfile').src = user.photo; // Update the profile image
+            // Update the profile image
+            document.getElementById('imageProfile').src = user.photo;
 
             // Hide the edit form and display the information again
             document.getElementById('editForm').style.display = 'none';
@@ -174,3 +204,5 @@ document.getElementById('cancelButton').addEventListener('click', function() {
     document.getElementById('editButton').style.display = 'block'; // Mostra nuovamente il pulsante "Edit"
 });
 </script>
+</body>
+</html>

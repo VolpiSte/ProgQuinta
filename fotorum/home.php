@@ -18,6 +18,17 @@
             .error {
                 color: red;
             }
+            .post {
+                border: 1px solid #ccc;
+                padding: 10px;
+                margin: 10px 0;
+            }
+            .post-photo {
+                max-width: 400px;  /* Or whatever width you want */
+                max-height: 300px; /* Or whatever height you want */
+                width: auto;
+                height: auto;
+            }
         </style>
     </head>
     <body>
@@ -32,12 +43,47 @@
                 header("Location: login.php");
                 exit;
             }
+
+            // Include the database connection file
+            include 'connection.php';
+        
+            // Fetch the latest 3 posts along with the account nickname
+            $stmtPosts = $conn->prepare('SELECT Post.*, Account.nickname FROM Post INNER JOIN Account ON Post.account_id = Account.id ORDER BY Post.id DESC LIMIT 3');
+            $stmtPosts->execute();
+            $resultPosts = $stmtPosts->get_result();
+            $posts = $resultPosts->fetch_all(MYSQLI_ASSOC);
         ?>
         <a href="pUtente.php">Personal Profile</a><br>
         <a href="post.php">Create Post</a><br>
         <a href=""></a><br>
         <a href="logout.php">Logout</a><br>
 
+        <div id="latestPosts">
+    <h2>Latest Posts:</h2>
+    <?php
+    if (empty($posts)) {
+        //echo "<p>No posts found.</p>";
+    } else {
+        foreach ($posts as $post) {
+            echo "<div class='post'>";
+            echo "<p>Creator: " . htmlspecialchars($post['nickname'], ENT_QUOTES, 'UTF-8') . "</p>";
+            echo "<p>Text: " . htmlspecialchars($post['text'], ENT_QUOTES, 'UTF-8') . "</p>";
+
+            // Display photo if available
+            if (!empty($post['photo'])) {
+                echo "<img class='post-photo' src='" . htmlspecialchars($post['photo'], ENT_QUOTES, 'UTF-8') . "' alt='Post Photo'>";
+            }
+
+            // Display file if available
+            if (!empty($post['file'])) {
+                echo "<p>File: <a href='" . htmlspecialchars($post['file'], ENT_QUOTES, 'UTF-8') . "'>Download</a></p>";
+            }
+
+            echo "</div>";
+        }
+    }
+    ?>
+</div>
 
     </body>
 </html>
