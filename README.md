@@ -31,26 +31,24 @@ Dubbi e consigli su foto e video
 * Account
     - [ ] Gestione Account
         - [x] Crea
-        - [ ] Posta
+        - [x] Posta
         - [x] Modifica
             - [x] Descrizione
             - [x] Foto profilo
-        - [ ] Gestione Password
+        - [x] Gestione Password
             - [x] Verifica
-            - [ ] Password Dimenticata (servizio recupero password)
+            - [x] Password Dimenticata (servizio recupero password)
         - [ ] Elimina
 * Post
     - [ ] Gestione Post
         - [x] Crea
             - [x] Descrizione
         - [x] File (foto/video)
-        - [ ] Modifica
+        - [x] Modifica
         - [x] Aggiungi Preset
         - [ ] Rimuovi Preset
-        - [ ] Elimina
+        - [x] Elimina
         - [ ] Likes
-        - [ ] Aggiungi likes
-        - [ ] Rimuovi likes
 * Commento
     - [ ] Gestione Commento
         - [ ] Crea
