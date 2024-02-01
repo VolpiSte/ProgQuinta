@@ -6,7 +6,7 @@
         <title>Login</title>
         <style>
             body {
-                font-family: Arial, sans-serif;
+                font-family: sans-serif;
                 background-color: #f4f4f4;
                 text-align: center;
                 margin: 150px;

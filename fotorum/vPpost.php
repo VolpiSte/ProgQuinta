@@ -53,6 +53,14 @@
         }
     ?>
 </div>
+<button id="showEditFormButton">Edit Post</button>
+<!-- Add edit button -->
+<form id="editForm" action="editPost.php" method="post" style="display: none;">
+    <input type="hidden" id="editPostId" name="post_id" value="<?php echo $postId; ?>">
+    <textarea id="editPostText" name="text" placeholder="New text"></textarea>
+    <input type="file" id="editPostFile" name="file">
+    <input type="submit" value="Save Changes">
+</form>
 <!-- Add delete button -->
 <form action="vPpostControl.php" method="post" onsubmit="return confirm('Are you sure you want to delete this post?');">
     <input type="hidden" name="action" value="delete">
@@ -60,5 +68,41 @@
     <input type="submit" value="Delete Post">
 </form>
 <a href="pUtente.php">Back to Profile</a>
+<script>
+document.getElementById('showEditFormButton').addEventListener('click', function() {
+    document.getElementById('editForm').style.display = 'block';
+});
+
+document.getElementById('editForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    var postId = document.getElementById('editPostId').value;
+    var postText = document.getElementById('editPostText').value;
+    var postFile = document.getElementById('editPostFile').files[0];
+
+    var formData = new FormData();
+    formData.append('action', 'edit');
+    formData.append('post_id', postId);
+    formData.append('text', postText);
+    if (postFile) {
+        formData.append('file', postFile);
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'vPpostControl.php', true);
+
+    xhr.onload = function() {
+        if (this.status == 200) {
+            console.log(this.responseText);
+            if (this.responseText.trim() == "Post updated successfully") {
+                // Optionally, reload the page if the update was successful
+                location.reload();
+            }
+        }
+    };
+
+    xhr.send(formData);
+});
+</script>
 </body>
 </html>

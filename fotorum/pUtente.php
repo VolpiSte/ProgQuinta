@@ -83,15 +83,18 @@
         Location: <input type="text" name="editLocation" value="<?php echo htmlspecialchars($user['location'], ENT_QUOTES, 'UTF-8'); ?>"><br>
         Work: <input type="text" name="editWork" value="<?php echo htmlspecialchars($user['work'], ENT_QUOTES, 'UTF-8'); ?>"><br>
         <label>Sex:</label>
-        <select id="editSexSelect" name="editSex" required>
+        <input list="editSex" name="editSex" value="Male" required>
+        <datalist id="editSex">
             <?php
+                include 'connection.php';
                 // Fetch the options for the Sex field
-                $result = $conn->query("SELECT id, sex FROM Sex");
+                $result = $conn->query("SELECT id, sex FROM Sex ORDER BY sex");
                 while ($row = $result->fetch_assoc()) {
-                    echo "<option value='" . $row['id'] . "'" . ($user['sex'] == $row['sex'] ? ' selected' : '') . ">" . $row['sex'] . "</option>";
+                    $sex = strip_tags($row['sex']);
+                    echo "<option value='" . $sex . "'>";
                 }
             ?>
-</select><br>
+        </datalist><br>
         <label>Pronoun:</label>
         <select id="editPronounSelect" name="editPronoun" required>
             <?php
