@@ -53,6 +53,8 @@
             $resultPosts = $stmtPosts->get_result();
             $posts = $resultPosts->fetch_all(MYSQLI_ASSOC);
         ?>
+                <input type="text" id="searchTerm" oninput="search()">
+        <div id="searchResults"></div>
         <a href="pUtente.php">Personal Profile</a><br>
         <a href="post.php">Create Post</a><br>
         <a href=""></a><br>
@@ -84,6 +86,35 @@
     }
     ?>
 </div>
+        <script>
+            var loggedInUserNickname = <?php echo json_encode($_SESSION['nickname']); ?>;
+            function search() {
+                var searchTerm = document.getElementById('searchTerm').value;
 
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'search.php', true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var accounts = JSON.parse(xhr.responseText);
+                        var resultsDiv = document.getElementById('searchResults');
+                        resultsDiv.innerHTML = '';
+
+                        for (var i = 0; i < accounts.length; i++) {
+                            var a = document.createElement('a');
+                            if (accounts[i].nickname === loggedInUserNickname) {
+                                a.href = 'pUtente.php';
+                            } else {
+                                a.href = 'vUtente.php?id=' + encodeURIComponent(accounts[i].id);
+                            }
+                            a.textContent = accounts[i].nickname;
+                            resultsDiv.appendChild(a);
+                            resultsDiv.appendChild(document.createElement('br'));
+                        }
+                    }
+                };
+                xhr.send("term=" + encodeURIComponent(searchTerm));
+            }
+        </script>
     </body>
 </html>
