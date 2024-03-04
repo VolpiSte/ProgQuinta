@@ -83,18 +83,16 @@
         Location: <input type="text" name="editLocation" value="<?php echo htmlspecialchars($user['location'], ENT_QUOTES, 'UTF-8'); ?>"><br>
         Work: <input type="text" name="editWork" value="<?php echo htmlspecialchars($user['work'], ENT_QUOTES, 'UTF-8'); ?>"><br>
         <label>Sex:</label>
-        <input list="editSex" name="editSex" value="Male" required>
-        <datalist id="editSex">
+        <select id="editSexSelect" name="editSex" required>
             <?php
                 include 'connection.php';
                 // Fetch the options for the Sex field
                 $result = $conn->query("SELECT id, sex FROM Sex ORDER BY sex");
-                while ($row = $result->fetch_assoc()) {
-                    $sex = strip_tags($row['sex']);
-                    echo "<option value='" . $sex . "'>";
+                while ($roi = $result->fetch_assoc()) {
+                    echo "<option value='" . $roi['id'] . "'" . ($user['sex'] == $roi['sex'] ? ' selected' : '') . ">" . $roi['sex'] . "</option>";
                 }
             ?>
-        </datalist><br>
+        </select><br>
         <label>Pronoun:</label>
         <select id="editPronounSelect" name="editPronoun" required>
             <?php
@@ -133,7 +131,6 @@
             echo "<input type='hidden' name='post_id' value='" . $post['id'] . "'>";
             echo "<input type='submit' value='View Post'>";
             echo "</form>";
-
             echo "</div>";
         }
     }
@@ -178,9 +175,9 @@ document.getElementById('updateForm').addEventListener('submit', function(event)
     xhr.open('POST', 'pUtenteControl.php', true);
     xhr.onload = function() {
         if (this.status == 200) {
-            //console.log(this.responseText);
+            console.log(this.responseText);
             var user = JSON.parse(this.responseText);
-            //console.log(user);
+            console.log(user);
             // Update displayed information with edited ones
             document.getElementById('name').textContent = user.name;
             document.getElementById('surname').textContent = user.surname;

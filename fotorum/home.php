@@ -1,66 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login</title>
-        <style>
-            body {
-                font-family: sans-serif;
-                background-color: #f4f4f4;
-                text-align: center;
-                margin: 150px;
-            }
-            form {
-                display: inline-block;
-                text-align: left;
-            }
-            .error {
-                color: red;
-            }
-            .post {
-                border: 1px solid #ccc;
-                padding: 10px;
-                margin: 10px 0;
-            }
-            .post-photo {
-                max-width: 400px;  /* Or whatever width you want */
-                max-height: 300px; /* Or whatever height you want */
-                width: auto;
-                height: auto;
-            }
-        </style>
-    </head>
-    <body>
-        <?php
-            session_start();
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 150px;
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+        }
+        .error {
+            color: red;
+        }
+        .post {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .post-photo {
+            max-width: 400px;  /* Or whatever width you want */
+            max-height: 300px; /* Or whatever height you want */
+            width: auto;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<?php
+session_start();
 
-            if (isset($_SESSION['nickname'])) {
-                echo("<h1>Hello, " . $_SESSION['nickname'] . "</h1>");
-            } elseif (isset($_COOKIE['nickname'])) {
-                echo("<h1>Hello, " . $_COOKIE['nickname'] . "</h1>");
-            } else {
-                header("Location: login.php");
-                exit;
-            }
+if (isset($_SESSION['nickname'])) {
+    echo("<h1>Hello, " . $_SESSION['nickname'] . "</h1>");
+} elseif (isset($_COOKIE['nickname'])) {
+    echo("<h1>Hello, " . $_COOKIE['nickname'] . "</h1>");
+} else {
+    header("Location: login.php");
+    exit;
+}
 
-            // Include the database connection file
-            include 'connection.php';
-        
-            // Fetch the latest 3 posts along with the account nickname
-            $stmtPosts = $conn->prepare('SELECT Post.*, Account.nickname FROM Post INNER JOIN Account ON Post.account_id = Account.id ORDER BY Post.id DESC LIMIT 3');
-            $stmtPosts->execute();
-            $resultPosts = $stmtPosts->get_result();
-            $posts = $resultPosts->fetch_all(MYSQLI_ASSOC);
-        ?>
-                <input type="text" id="searchTerm" oninput="search()">
-        <div id="searchResults"></div>
-        <a href="pUtente.php">Personal Profile</a><br>
-        <a href="post.php">Create Post</a><br>
-        <a href=""></a><br>
-        <a href="logout.php">Logout</a><br>
+// Include the database connection file
+include 'connection.php';
 
-        <div id="latestPosts">
+// Fetch the latest 3 posts along with the account nickname
+$stmtPosts = $conn->prepare('SELECT Post.*, Account.nickname FROM Post INNER JOIN Account ON Post.account_id = Account.id ORDER BY Post.id DESC LIMIT 3');
+$stmtPosts->execute();
+$resultPosts = $stmtPosts->get_result();
+$posts = $resultPosts->fetch_all(MYSQLI_ASSOC);
+?>
+
+<input type="text" id="searchTerm" oninput="debounce(search, 500)">
+
+<div id="searchResults"></div>
+<hr>
+<a href="pUtente.php">Personal Profile</a><br>
+<a href="post.php">Create Post</a><br>
+<a href=""></a><br>
+<a href="logout.php">Logout</a><br>
+
+<div id="latestPosts">
     <h2>Latest Posts:</h2>
     <?php
     if (empty($posts)) {
@@ -86,35 +89,49 @@
     }
     ?>
 </div>
-        <script>
-            var loggedInUserNickname = <?php echo json_encode($_SESSION['nickname']); ?>;
-            function search() {
-                var searchTerm = document.getElementById('searchTerm').value;
 
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', 'search.php', true);
-                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        var accounts = JSON.parse(xhr.responseText);
-                        var resultsDiv = document.getElementById('searchResults');
-                        resultsDiv.innerHTML = '';
+<script>
+    var loggedInUserNickname = <?php echo json_encode($_SESSION['nickname']); ?>;
+    var timeoutId;
 
-                        for (var i = 0; i < accounts.length; i++) {
-                            var a = document.createElement('a');
-                            if (accounts[i].nickname === loggedInUserNickname) {
-                                a.href = 'pUtente.php';
-                            } else {
-                                a.href = 'vUtente.php?id=' + encodeURIComponent(accounts[i].id);
-                            }
-                            a.textContent = accounts[i].nickname;
-                            resultsDiv.appendChild(a);
-                            resultsDiv.appendChild(document.createElement('br'));
-                        }
+    function debounce(func, delay) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(func, delay);
+    }
+
+    function search() {
+        var searchTerm = document.getElementById('searchTerm').value;
+
+        if (searchTerm.trim() === "") { // Se la stringa di ricerca è vuota
+            document.getElementById('searchResults').innerHTML = ''; // Svuota i risultati della ricerca
+            return; // Esci dalla funzione
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'search.php', true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var accounts = JSON.parse(xhr.responseText);
+                var resultsDiv = document.getElementById('searchResults');
+                resultsDiv.innerHTML = '';
+
+                for (var i = 0; i < accounts.length; i++) {
+                    var a = document.createElement('a');
+                    if (accounts[i].nickname === loggedInUserNickname) {
+                        a.href = 'pUtente.php';
+                    } else {
+                        a.href = 'vUtente.php?id=' + encodeURIComponent(accounts[i].id);
                     }
-                };
-                xhr.send("term=" + encodeURIComponent(searchTerm));
+                    a.textContent = accounts[i].nickname;
+                    resultsDiv.appendChild(a);
+                    resultsDiv.appendChild(document.createElement('br'));
+                }
             }
-        </script>
-    </body>
+        };
+        xhr.send("term=" + encodeURIComponent(searchTerm));
+    }
+</script>
+
+</body>
 </html>
