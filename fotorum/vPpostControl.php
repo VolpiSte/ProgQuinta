@@ -48,10 +48,58 @@
         } else {
             echo "Error updating post";
         }
-    } else {
-        echo "Invalid action.";
+    } elseif ($_POST['action'] === 'like') {
+    $nickname = $_SESSION['nickname'];
+    $stmt = $conn->prepare('SELECT id FROM Account WHERE nickname = ?');
+    $stmt->bind_param('s', $nickname);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $account = $result->fetch_assoc();
+
+    if ($account === null) {
+        echo "Account not found.";
         exit();
     }
 
-    
+    $accountId = $account['id'];
+
+    // Check if a like already exists
+    $stmt = $conn->prepare("SELECT * FROM Likes WHERE post_id = ? AND account_id = ?");
+    $stmt->bind_param("ii", $postId, $accountId);
+    $stmt->execute();
+    $like = $stmt->get_result()->fetch_assoc();
+
+    if ($like) {
+        // If a like exists, delete it
+        $stmt = $conn->prepare("DELETE FROM Likes WHERE post_id = ? AND account_id = ?");
+        $stmt->bind_param("ii", $postId, $accountId);
+        $stmt->execute();
+
+        if ($stmt->affected_rows > 0) {
+            echo "Like removed successfully";
+        } else {
+            echo "Error removing like";
+        }
+    } else {
+        // If no like exists, add one
+        $stmt = $conn->prepare("INSERT INTO Likes (post_id, account_id) VALUES (?, ?)");
+        $stmt->bind_param("ii", $postId, $accountId);
+        $stmt->execute();
+
+        if ($stmt->affected_rows > 0) {
+            echo "Like added successfully";
+            echo '<form id="redirectForm" action="vPpost.php" method="post">
+                <input type="hidden" name="post_id" value="' . $postId . '">
+            </form>
+            <script type="text/javascript">
+                document.getElementById("redirectForm").submit();
+            </script>';
+        } else {
+            echo "Error adding like";
+        }
+    }
+
+    header("Location: vPpost.php");
+    exit();
+}
 ?>

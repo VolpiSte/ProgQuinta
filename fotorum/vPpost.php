@@ -35,7 +35,27 @@
         //echo "You are not the owner of this post.";
         $b = true;
     }
+$nickname = $_SESSION['nickname'];
+$stmt = $conn->prepare('SELECT id FROM Account WHERE nickname = ?');
+$stmt->bind_param('s', $nickname);
+$stmt->execute();
+$result = $stmt->get_result();
+$account = $result->fetch_assoc();
 
+if ($account === null) {
+    echo "Account not found.";
+    exit();
+}
+
+$accountId = $account['id'];
+
+// Check if the user has already liked the post
+$stmt = $conn->prepare("SELECT * FROM Likes WHERE post_id = ? AND account_id = ?");
+$stmt->bind_param("ii", $postId, $accountId);
+$stmt->execute();
+$like = $stmt->get_result()->fetch_assoc();
+
+$buttonText = $like ? "Remove Like" : "Like";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,6 +98,13 @@
         <input type="submit" value="Delete Post">
     </form>
 <?php endif; ?>
+<!-- Add like button -->
+<form id="likeForm" action="vPpostControl.php" method="post">
+    <input type="hidden" name="action" value="like">
+    <input type="hidden" name="post_id" value="<?php echo $postId; ?>">
+    <input type="hidden" name="account_id" value="<?php echo $accountId; ?>">
+    <input type="submit" value="<?php echo $buttonText; ?>">
+</form>
 
 
 <div id="menu">
@@ -122,7 +149,6 @@ if (editForm) {
                 }
             }
         };
-
         xhr.send(formData);
     });
 }
