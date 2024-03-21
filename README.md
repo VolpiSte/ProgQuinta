@@ -92,7 +92,8 @@ Dubbi e consigli su foto e video
     * account
 
 # Schema E/R
-![fatto](https://github.com/VolpiSte/ProgQuinta/assets/101709267/39f6936a-030b-4883-bdc1-5bcb03a74872)
+![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/09a2e11c-c0de-47dd-a9cd-1ed75284e4c5)
+
 
 
 # Schema Relazionale
