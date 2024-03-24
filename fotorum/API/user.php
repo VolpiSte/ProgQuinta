@@ -1,42 +1,61 @@
 <?php
 include 'connection.php';
 
-// Check if an ID was provided in the URL
+// Check if any parameters were provided in the URL
 if (isset($_SERVER['PATH_INFO'])) {
-    // Extract the ID
-    $id = ltrim($_SERVER['PATH_INFO'], '/');
+    // Split the parameters into an array
+    $params = explode('/', ltrim($_SERVER['PATH_INFO'], '/'));
+
+    // The first parameter is the user ID
+    $userId = $params[0];
 
     // Retrieve the user with the specified ID from the database
-    $sql = "SELECT * FROM Account WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id);
+    $stmt = $conn->prepare("SELECT * FROM Account WHERE id = ?");
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $user = $stmt->get_result()->fetch_assoc();
+
+    if ($user) {
+        // If a second parameter is provided, it specifies a type of data to retrieve
+        if (isset($params[1])) {
+            $type = $params[1];
+
+            switch ($type) {
+                case 'post':
+                    $stmt = $conn->prepare("SELECT * FROM Post WHERE account_id = ?");
+                    break;
+                case 'like':
+                    $stmt = $conn->prepare("SELECT * FROM Likes WHERE account_id = ?");
+                    break;
+                case 'comment':
+                    $stmt = $conn->prepare("SELECT * FROM Comment WHERE account_id = ?");
+                    break;
+                default:
+                    echo "Invalid type.";
+                    exit();
+            }
+
+            $stmt->bind_param("i", $userId);
+            $stmt->execute();
+            $user[$type] = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        }
+
+        header('Content-Type: application/json');
+        header('Access-Control-Allow-Origin: *');
+        echo json_encode($user, JSON_PRETTY_PRINT);
+    } else {
+        echo "No user found.";
+    }
 } else {
     // Retrieve all users from the database
-    $sql = "SELECT * FROM Account";
-    $stmt = $conn->prepare($sql);
-}
+    $stmt = $conn->prepare("SELECT * FROM Account");
+    $stmt->execute();
+    $users = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
-    $users = array();
-    while ($row = $result->fetch_assoc()) {
-        $users[] = $row;
-    }
-    // Convert the users array to JSON
-    $json = json_encode($users, JSON_PRETTY_PRINT);
-
-    // Set the response headers
     header('Content-Type: application/json');
     header('Access-Control-Allow-Origin: *');
-
-    // Output the JSON data
-    echo $json;
-} else {
-    echo "No users found.";
+    echo json_encode($users, JSON_PRETTY_PRINT);
 }
 
-$stmt->close();
 $conn->close();
 ?>

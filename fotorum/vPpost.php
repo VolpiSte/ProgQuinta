@@ -35,27 +35,27 @@
         //echo "You are not the owner of this post.";
         $b = true;
     }
-$nickname = $_SESSION['nickname'];
-$stmt = $conn->prepare('SELECT id FROM Account WHERE nickname = ?');
-$stmt->bind_param('s', $nickname);
-$stmt->execute();
-$result = $stmt->get_result();
-$account = $result->fetch_assoc();
+    $nickname = $_SESSION['nickname'];
+    $stmt = $conn->prepare('SELECT id FROM Account WHERE nickname = ?');
+    $stmt->bind_param('s', $nickname);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $account = $result->fetch_assoc();
 
-if ($account === null) {
-    echo "Account not found.";
-    exit();
-}
+    if ($account === null) {
+        echo "Account not found.";
+        exit();
+    }
 
-$accountId = $account['id'];
+    $accountId = $account['id'];
 
-// Check if the user has already liked the post
-$stmt = $conn->prepare("SELECT * FROM Likes WHERE post_id = ? AND account_id = ?");
-$stmt->bind_param("ii", $postId, $accountId);
-$stmt->execute();
-$like = $stmt->get_result()->fetch_assoc();
+    // Check if the user has already liked the post
+    $stmt = $conn->prepare("SELECT * FROM Likes WHERE post_id = ? AND account_id = ?");
+    $stmt->bind_param("ii", $postId, $accountId);
+    $stmt->execute();
+    $like = $stmt->get_result()->fetch_assoc();
 
-$buttonText = $like ? "Remove Like" : "Like";
+    $buttonText = $like ? "Remove Like" : "Like";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -105,7 +105,34 @@ $buttonText = $like ? "Remove Like" : "Like";
     <input type="hidden" name="account_id" value="<?php echo $accountId; ?>">
     <input type="submit" value="<?php echo $buttonText; ?>">
 </form>
+<!-- Add comment button -->
+<button id="showCommentFormButton">Commenta</button>
+<!-- Add comment form -->
+<form id="commentForm" action="vPpostControl.php" method="post" style="display: none;">
+    <input type="hidden" name="action" value="comment">
+    <input type="hidden" name="post_id" value="<?php echo $postId; ?>">
+    <input type="hidden" name="account_id" value="<?php echo $accountId; ?>">
+    <textarea name="text" placeholder="Add a comment"></textarea>
+    <input type="submit" value="Add Comment">
+</form>
 
+<!-- Display comments -->
+<div id="comments">
+    <?php
+    $stmt = $conn->prepare('SELECT Comment.*, Account.nickname FROM Comment INNER JOIN Account ON Comment.account_id = Account.id WHERE Comment.post_id = ? ORDER BY Comment.id DESC');
+    $stmt->bind_param('i', $postId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($comment = $result->fetch_assoc()) {
+        echo "<div class='comment'>";
+        echo "<p>" . htmlspecialchars($comment['nickname'], ENT_QUOTES, 'UTF-8') . ": " . htmlspecialchars($comment['text'], ENT_QUOTES, 'UTF-8') . "</p>";
+        if ($accountId === $comment['account_id']) {
+            echo "<button class='deleteCommentButton' data-comment-id='" . $comment['id'] . "'>Delete Comment</button>";
+        }
+        echo "</div>";
+    }
+    ?>
+</div>
 
 <div id="menu">
     <a href="home.php">Home</a><br>
@@ -152,6 +179,105 @@ if (editForm) {
         xhr.send(formData);
     });
 }
+
+var likeForm = document.getElementById('likeForm');
+if (likeForm) {
+    likeForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var action = this.elements['action'].value;
+        var postId = this.elements['post_id'].value;
+        var accountId = this.elements['account_id'].value;
+
+        var formData = new FormData();
+        formData.append('action', action);
+        formData.append('post_id', postId);
+        formData.append('account_id', accountId);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'vPpostControl.php', true);
+
+        xhr.onload = function() {
+            if (this.status == 200) {
+                console.log(this.responseText);
+                var response = JSON.parse(this.responseText);
+                if (response.status === 'success') {
+                    // Change the button text
+                    var buttonText = response.message === 'Like added successfully' ? 'Rimuovi Like' : 'Like';
+                    likeForm.querySelector('input[type="submit"]').value = buttonText;
+                }
+            }
+        };
+        xhr.send(formData);
+    });
+}
+
+var commentForm = document.getElementById('commentForm');
+if (commentForm) {
+    commentForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var action = this.elements['action'].value;
+        var postId = this.elements['post_id'].value;
+        var accountId = this.elements['account_id'].value;
+        var text = this.elements['text'].value;
+
+        var formData = new FormData();
+        formData.append('action', action);
+        formData.append('post_id', postId);
+        formData.append('account_id', accountId);
+        formData.append('text', text);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'vPpostControl.php', true);
+
+        xhr.onload = function() {
+            if (this.status == 200) {
+                console.log(this.responseText);
+                var response = JSON.parse(this.responseText);
+                if (response.status === 'success') {
+                    // Optionally, reload the page if the comment was added successfully
+                    location.reload();
+                }
+            }
+        };
+        xhr.send(formData);
+    });
+}
+
+// Add event listeners for delete comment buttons
+var deleteCommentButtons = document.getElementsByClassName('deleteCommentButton');
+for (var i = 0; i < deleteCommentButtons.length; i++) {
+    deleteCommentButtons[i].addEventListener('click', function() {
+        var commentId = this.getAttribute('data-comment-id');
+        var postId = <?php echo json_encode($postId); ?>;
+        var formData = new FormData();
+        formData.append('action', 'deleteComment');
+        formData.append('comment_id', commentId);
+        formData.append('post_id', postId);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'vPpostControl.php', true);
+
+        xhr.onload = function() {
+            if (this.status == 200) {
+                console.log(this.responseText);
+                var response = JSON.parse(this.responseText);
+                if (response.status === 'success') {
+                    // Optionally, reload the page if the comment was deleted successfully
+                    location.reload();
+                }
+            }
+        };
+        xhr.send(formData);
+    });
+}
+var showCommentFormButton = document.getElementById('showCommentFormButton');
+if (showCommentFormButton) {
+    showCommentFormButton.addEventListener('click', function() {
+        document.getElementById('commentForm').style.display = 'block';
+    });
+}
+</script>
 </script>
 </body>
 </html>

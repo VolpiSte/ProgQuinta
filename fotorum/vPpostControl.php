@@ -69,6 +69,8 @@
     $stmt->execute();
     $like = $stmt->get_result()->fetch_assoc();
 
+    $response = array();
+
     if ($like) {
         // If a like exists, delete it
         $stmt = $conn->prepare("DELETE FROM Likes WHERE post_id = ? AND account_id = ?");
@@ -76,9 +78,11 @@
         $stmt->execute();
 
         if ($stmt->affected_rows > 0) {
-            echo "Like removed successfully";
+            $response['status'] = 'success';
+            $response['message'] = 'Like removed successfully';
         } else {
-            echo "Error removing like";
+            $response['status'] = 'error';
+            $response['message'] = 'Error removing like';
         }
     } else {
         // If no like exists, add one
@@ -87,19 +91,55 @@
         $stmt->execute();
 
         if ($stmt->affected_rows > 0) {
-            echo "Like added successfully";
-            echo '<form id="redirectForm" action="vPpost.php" method="post">
-                <input type="hidden" name="post_id" value="' . $postId . '">
-            </form>
-            <script type="text/javascript">
-                document.getElementById("redirectForm").submit();
-            </script>';
+            $response['status'] = 'success';
+            $response['message'] = 'Like added successfully';
         } else {
-            echo "Error adding like";
+            $response['status'] = 'error';
+            $response['message'] = 'Error adding like';
         }
     }
-
-    header("Location: vPpost.php");
-    exit();
-}
-?>
+ } elseif ($_POST['action'] === 'comment') {
+        $postId = $_POST['post_id'];
+        $accountId = $_POST['account_id'];
+        $text = $_POST['text'];
+    
+        $stmt = $conn->prepare("INSERT INTO Comment (text, post_id, account_id) VALUES (?, ?, ?)");
+        $stmt->bind_param("sii", $text, $postId, $accountId);
+        $stmt->execute();
+    
+        if ($stmt->affected_rows > 0) {
+            $response['status'] = 'success';
+            $response['message'] = 'Comment added successfully';
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Error adding comment';
+        }
+    }  elseif ($_POST['action'] === 'deleteComment') {
+        if (!isset($_POST['comment_id'])) {
+            $response['status'] = 'error';
+            $response['message'] = 'Invalid request.';
+        } else {
+            $commentId = $_POST['comment_id'];
+    
+            $stmt = $conn->prepare("DELETE FROM Comment WHERE id = ?");
+            $stmt->bind_param("i", $commentId);
+            $stmt->execute();
+    
+            if ($stmt->affected_rows > 0) {
+                $response['status'] = 'success';
+                $response['message'] = 'Comment deleted successfully';
+            } else {
+                $response['status'] = 'error';
+                $response['message'] = 'Error deleting comment';
+            }
+        }
+    } else {
+        $response['status'] = 'error';
+        $response['message'] = 'Invalid request.';
+    }
+    
+    // Output the response as JSON
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit(); // Ensure no further output is sent
+    ?>
