@@ -8,12 +8,6 @@
     // Get the search term from the POST data
     $searchTerm = $_POST['term'];
 
-    // If the search term matches the nickname of the logged-in user, redirect to pUtente.php
-    if (isset($_SESSION['nickname']) && $searchTerm === $_SESSION['nickname']) {
-        header('Location: pUtente.php');
-        exit;
-    }
-
     // Add the wildcard character to the search term
     $searchTermWithWildcard = $searchTerm . '%';
 
@@ -27,4 +21,3 @@
     // Return the accounts as a JSON array
     echo json_encode($accounts);
 ?>
-

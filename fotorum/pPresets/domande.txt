@@ -1,0 +1,28 @@
+Struttura rigida di dati
+
+Esempi:
+Array: Una sequenza di elementi dello stesso tipo, accessibili da indice numerico.
+Tuple: Una collezione ordinata e immutabile di elementi, accessibili da indice numerico.
+Record: Una struttura dati che raggruppa un insieme di campi o attributi, diversi tipi possibili.
+
+JDBC è un'interfaccia Java per interagire con database. Esistono diversi tipi di driver JDBC:
+
+1. Tipo 1: JDBC-ODBC Bridge Driver
+   - Funge da ponte tra i driver ODBC e le applicazioni Java.
+   - Utilizzato principalmente su Windows.
+   - Non ottimale per applicazioni ad alte prestazioni a causa della dipendenza dai driver ODBC.
+
+2. Tipo 2: Driver nativi parzialmente Java
+   - Utilizzano codice nativo per comunicare con il database.
+   - Offrono buone prestazioni ma richiedono installazioni aggiuntive sul client.
+   - Scelta ideale per ambienti controllati e critici in termini di prestazioni.
+
+3. Tipo 3: Driver di rete completamente Java
+   - Inviare le chiamate del database a un server middleware.
+   - Scritti completamente in Java per la massima portabilità.
+   - Adatti per comunicare con diversi database in ambienti eterogenei.
+
+4. Tipo 4: Driver nativi completo Java
+   - Conosciuti come "thin drivers", scritti completamente in Java.
+   - Comunicano direttamente con il database senza software client nativo.
+   - Offrono eccellenti prestazioni e portabilità, ideali per molte applicazioni Java moderne.

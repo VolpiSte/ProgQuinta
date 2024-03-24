@@ -38,6 +38,7 @@ CREATE TABLE Account (
 CREATE TABLE Post (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     photo VARCHAR(255),
+    original_photo VARCHAR(255),
     file VARCHAR(255), 
     text TEXT NOT NULL,
     account_id INTEGER,

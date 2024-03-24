@@ -57,7 +57,7 @@
 
         // Handle photo upload
         if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
-            $photo_path = 'uploads/' . pathinfo($_FILES['photo']['name'], PATHINFO_FILENAME) . '.webp';
+            $photo_path = 'fProfile/' . pathinfo($_FILES['photo']['name'], PATHINFO_FILENAME) . '.webp';
 
             // Create an image resource from the uploaded file
             $imageType = exif_imagetype($_FILES['photo']['tmp_name']);

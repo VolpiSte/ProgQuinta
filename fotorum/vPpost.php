@@ -72,13 +72,23 @@
     </style>
 </head>
 <body>
+
 <div id="post">
     <h2>Post:</h2>
     <p>Text: <span id="text"><?php echo htmlspecialchars($post['text'], ENT_QUOTES, 'UTF-8'); ?></span></p>
     <?php
+        // Existing code...
+
         if (!empty($post['photo'])) {
             echo "<img class='post-photo' src='" . htmlspecialchars($post['photo'], ENT_QUOTES, 'UTF-8') . "' alt='Post Photo'>";
+            // Add download button for the photo
+            echo "<a href='" . htmlspecialchars($post['original_photo'], ENT_QUOTES, 'UTF-8') . "' download>Download Photo</a>\n";
         }
+        if (!empty($post['file'])) {
+            // Add download button for the file
+            echo "<a href='" . htmlspecialchars($post['file'], ENT_QUOTES, 'UTF-8') . "' download>Scarica Preset</a>";
+        }
+
     ?>
 </div>
 

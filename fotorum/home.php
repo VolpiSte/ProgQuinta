@@ -1,3 +1,12 @@
+<?php
+    session_start();
+    if (!isset($_SESSION['nickname']) && !isset($_COOKIE['email_or_nickname'])) {
+        header("Location: login.php");
+        exit();
+    }
+    $nickname = isset($_SESSION['nickname']) ? $_SESSION['nickname'] : $_COOKIE['email_or_nickname'];
+    $nickname = htmlspecialchars($nickname);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,17 +41,8 @@
     </style>
 </head>
 <body>
+<h1>Welcome, <?php echo $nickname; ?>!</h1>
 <?php
-session_start();
-
-if (isset($_SESSION['nickname'])) {
-    echo("<h1>Hello, " . $_SESSION['nickname'] . "</h1>");
-} elseif (isset($_COOKIE['nickname'])) {
-    echo("<h1>Hello, " . $_COOKIE['nickname'] . "</h1>");
-} else {
-    header("Location: login.php");
-    exit;
-}
 
 // Include the database connection file
 include 'connection.php';
@@ -64,20 +64,29 @@ $posts = $resultPosts->fetch_all(MYSQLI_ASSOC);
 <a href="logout.php">Logout</a><br>
 
 <div id="latestPosts">
-    <h2>Latest Posts:</h2>
     <?php
     if (empty($posts)) {
         //echo "<p>No posts found.</p>";
     } else {
+        echo "<h2>Latest Posts:</h2>";
         foreach ($posts as $post) {
             echo "<div class='post'>";
             echo "<p>Creator: " . htmlspecialchars($post['nickname'], ENT_QUOTES, 'UTF-8') . "</p>";
             echo "<p>Text: " . htmlspecialchars($post['text'], ENT_QUOTES, 'UTF-8') . "</p>";
 
+            echo "<form method='POST' action='vPpost.php' class='post'>";
+            echo "<input type='hidden' name='post_id' value='" . htmlspecialchars($post['id'], ENT_QUOTES, 'UTF-8') . "'>";
+
             // Display photo if available
             if (!empty($post['photo'])) {
+                echo "<button type='submit'>";
                 echo "<img class='post-photo' src='" . htmlspecialchars($post['photo'], ENT_QUOTES, 'UTF-8') . "' alt='Post Photo'>";
+                echo "</button>";
             }
+
+            // Display other post content here...
+
+            echo "</form>";
 
             // Display file if available
             if (!empty($post['file'])) {
