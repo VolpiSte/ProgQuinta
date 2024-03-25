@@ -29,7 +29,7 @@ Dubbi e consigli su foto e video
 * Scaricare preset
 
 * Account
-    - [ ] Gestione Account
+    - [x] Gestione Account
         - [x] Crea
         - [x] Posta
         - [x] Modifica
@@ -38,26 +38,26 @@ Dubbi e consigli su foto e video
         - [x] Gestione Password
             - [x] Verifica
             - [x] Password Dimenticata (servizio recupero password)
-        - [ ] Elimina
+        - [x] Elimina
 * Post
-    - [ ] Gestione Post
+    - [x] Gestione Post
         - [x] Crea
             - [x] Descrizione
         - [x] File (foto/video)
         - [x] Modifica
         - [x] Aggiungi Preset
-        - [ ] Rimuovi Preset
+        - [x] Rimuovi Preset
         - [x] Elimina
-        - [ ] Likes
+        - [x] Likes
 * Commento
-    - [ ] Gestione Commento
-        - [ ] Crea
-          - [ ] Scrivi
-        - [ ] Elimina
+    - [x] Gestione Commento
+        - [x] Crea
+          - [x] Scrivi
+        - [x] Elimina
 * Likes
-    - [ ] Gestione Like
-      - [ ] Aggiungi
-      - [ ] Rimuovi
+    - [x] Gestione Like
+      - [x] Aggiungi
+      - [x] Rimuovi
 ## Entità
 * Account (fotografo/Videografo)
     * nickName (PK)
