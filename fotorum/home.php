@@ -84,8 +84,6 @@ $posts = $resultPosts->fetch_all(MYSQLI_ASSOC);
                 echo "</button>";
             }
 
-            // Display other post content here...
-
             echo "</form>";
 
             // Display file if available
