@@ -62,21 +62,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/fotor
 }
 
 if(isset($_REQUEST['tabella'])){
-    $tabella = $connessione->real_escape_string($_REQUEST['tabella']);
+    $tabella = $_REQUEST['tabella'];
     if(isset($_REQUEST['id'])){
-        $id = $connessione->real_escape_string($_REQUEST['id']);
-        $query = "SELECT * FROM ".$tabella." WHERE id = ".$id;
-    }else{
-        $query = "SELECT * FROM ".$tabella;
+        $id = $_REQUEST['id'];
+        if(isset($_REQUEST['info'])){
+            $info = $_REQUEST['info'];
+            if ($info == 'post') {
+                // Se il parametro "info" è "post", allora restituisci i post relativi all'account
+                if(isset($_REQUEST['post_id'])) {
+                    // Se è specificato un post_id, restituisci solo quel post
+                    $post_id = $_REQUEST['post_id'];
+                    $query = "SELECT * FROM Post WHERE account_id = ? AND id = ?";
+                    $stmt = $connessione->prepare($query);
+                    $stmt->bind_param("ii", $id, $post_id);
+                } else {
+                    // Altrimenti, restituisci tutti i post dell'account
+                    $query = "SELECT * FROM Post WHERE account_id = ?";
+                    $stmt = $connessione->prepare($query);
+                    $stmt->bind_param("i", $id);
+                }
+            } elseif ($info == 'sex') {
+                // Query per ottenere il genere dell'account
+                $query = "SELECT a.*, s.sex FROM $tabella a JOIN Sex s ON a.sex = s.id WHERE a.id = ?";
+                $stmt = $connessione->prepare($query);
+                $stmt->bind_param("i", $id);
+            } else {
+                $query = "SELECT * FROM $tabella WHERE id = ?";
+                $stmt = $connessione->prepare($query);
+                $stmt->bind_param("i", $id);
+            }
+        } else {
+            $query = "SELECT * FROM $tabella WHERE id = ?";
+            $stmt = $connessione->prepare($query);
+            $stmt->bind_param("i", $id);
+        }
+    } else {
+        $query = "SELECT * FROM $tabella";
+        $stmt = $connessione->prepare($query);
     }
-    $risultato = $connessione->query($query);
+    $stmt->execute();
+    $risultato = $stmt->get_result();
     if ($risultato) {
         header('Content-Type: application/json');
         echo json_encode($risultato->fetch_all(MYSQLI_ASSOC), JSON_PRETTY_PRINT);    
     } else {
         echo "Errore nella query: " . $connessione->error;
     }
-}else{
+} else {
 echo("
 <!DOCTYPE html>
 <html>
