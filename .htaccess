@@ -1,0 +1,12 @@
+RewriteEngine On
+RewriteBase /fotorum/
+
+# Specific rule for the verifica path
+RewriteRule ^api\verifica\([a-zA-Z0-9_-]+)\?$ verifica.php/$1 [NC,L]
+
+# General rules for other paths
+RewriteRule ^api/([a-zA-Z0-9_-]+)/?$ api.php?tabella=$1 [NC,L]
+RewriteRule ^api/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/?$ api.php?tabella=$1&id=$2 [NC,L]
+
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
