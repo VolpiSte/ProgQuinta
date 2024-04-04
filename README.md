@@ -114,7 +114,7 @@ Like (<ins>id_like</ins>, <ins>id_post</ins>, <ins>account_nickname</ins>) <br>
 # PER FARLO FUNZIONARE
 - Avere XAMPP in locale
 - Creare un database nominato "fotorum"
-- usare il .sql e creare le tabelle
+- usare il fotorum.sql e creare le tabelle (se non va usare queries.sql ma non avrai account e altre cose)
 - Poi puoi utilizzare tutte le funzionalità che ho implementato
 
 
