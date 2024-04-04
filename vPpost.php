@@ -56,6 +56,14 @@
     $like = $stmt->get_result()->fetch_assoc();
 
     $buttonText = $like ? "Remove Like" : "Like";
+
+    // Count the number of likes for the post
+$stmt = $conn->prepare("SELECT COUNT(*) as like_count FROM Likes WHERE post_id = ?");
+$stmt->bind_param("i", $postId);
+$stmt->execute();
+$likeCountResult = $stmt->get_result();
+$likeCount = $likeCountResult->fetch_assoc()['like_count'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,8 +85,6 @@
     <h2>Post:</h2>
     <p>Text: <span id="text"><?php echo htmlspecialchars($post['text'], ENT_QUOTES, 'UTF-8'); ?></span></p>
     <?php
-        // Existing code...
-
         if (!empty($post['photo'])) {
             echo "<img class='post-photo' src='" . htmlspecialchars($post['photo'], ENT_QUOTES, 'UTF-8') . "' alt='Post Photo'>";
             // Add download button for the photo
@@ -114,7 +120,10 @@
     <input type="hidden" name="post_id" value="<?php echo $postId; ?>">
     <input type="hidden" name="account_id" value="<?php echo $accountId; ?>">
     <input type="submit" value="<?php echo $buttonText; ?>">
+    <!-- Display the number of likes -->
+    <span><?php echo $likeCount; ?> Likes</span>
 </form>
+
 <!-- Add comment button -->
 <button id="showCommentFormButton">Commenta</button>
 <!-- Add comment form -->
