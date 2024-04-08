@@ -121,7 +121,7 @@ $likeCount = $likeCountResult->fetch_assoc()['like_count'];
     <input type="hidden" name="account_id" value="<?php echo $accountId; ?>">
     <input type="submit" value="<?php echo $buttonText; ?>">
     <!-- Display the number of likes -->
-    <span><?php echo $likeCount; ?> Likes</span>
+    <span id="likeCount"><?php echo $likeCount; ?> Likes</span>
 </form>
 
 <!-- Add comment button -->
@@ -188,7 +188,7 @@ if (editForm) {
 
         xhr.onload = function() {
             if (this.status == 200) {
-                console.log(this.responseText);
+                //console.log(this.responseText);
                 if (this.responseText.trim() == "Post updated successfully") {
                     // Optionally, reload the page if the update was successful
                     location.reload();
@@ -198,7 +198,6 @@ if (editForm) {
         xhr.send(formData);
     });
 }
-
 var likeForm = document.getElementById('likeForm');
 if (likeForm) {
     likeForm.addEventListener('submit', function(event) {
@@ -218,18 +217,24 @@ if (likeForm) {
 
         xhr.onload = function() {
             if (this.status == 200) {
-                console.log(this.responseText);
+                //console.log(this.responseText);
                 var response = JSON.parse(this.responseText);
                 if (response.status === 'success') {
                     // Change the button text
                     var buttonText = response.message === 'Like added successfully' ? 'Rimuovi Like' : 'Like';
                     likeForm.querySelector('input[type="submit"]').value = buttonText;
+                    // Update the like count
+                    var likeCountElement = document.getElementById('likeCount');
+                    if (likeCountElement) {
+                        likeCountElement.textContent = response.like_count + ' Likes';
+                    }
                 }
             }
         };
         xhr.send(formData);
     });
 }
+
 
 var commentForm = document.getElementById('commentForm');
 if (commentForm) {
@@ -252,7 +257,7 @@ if (commentForm) {
 
         xhr.onload = function() {
             if (this.status == 200) {
-                console.log(this.responseText);
+                //console.log(this.responseText);
                 var response = JSON.parse(this.responseText);
                 if (response.status === 'success') {
                     // Optionally, reload the page if the comment was added successfully
@@ -279,7 +284,7 @@ for (var i = 0; i < deleteCommentButtons.length; i++) {
 
         xhr.onload = function() {
             if (this.status == 200) {
-                console.log(this.responseText);
+                //console.log(this.responseText);
                 var response = JSON.parse(this.responseText);
                 if (response.status === 'success') {
                     // Optionally, reload the page if the comment was deleted successfully
@@ -296,6 +301,8 @@ if (showCommentFormButton) {
         document.getElementById('commentForm').style.display = 'block';
     });
 }
+
+
 </script>
 </script>
 </body>
