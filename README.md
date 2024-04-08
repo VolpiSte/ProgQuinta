@@ -115,9 +115,9 @@ Like (<ins>id_like</ins>, <ins>id_post</ins>, <ins>account_nickname</ins>) <br>
 - Avere XAMPP in locale
 - Creare un database nominato "fotorum"
 - usare il fotorum.sql e creare le tabelle (se non va usare queries.sql ma non avrai account e altre cose)
+- abilitare in XAMPP la libreria gd (php.ini)
+- utilizzare il seguente comando per il Composer (solo JWT):
+composer install --ignore-platform-req=ext-simplexml --ignore-platform-req=ext-fileinfo
+- URL localhost
 - Poi puoi utilizzare tutte le funzionalità che ho implementato
 
-
-
-# Osti per far andare il JWT
-composer install --ignore-platform-req=ext-simplexml --ignore-platform-req=ext-fileinfo
