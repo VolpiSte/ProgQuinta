@@ -25,9 +25,9 @@
                     // Set the cookie for email or nickname
                     setcookie('email_or_nickname', $email_or_nickname, time() + (86400), "/", "", false, true); // 86400 = 1 day
 
-                    if ($_SESSION['role'] == 3) {
+                    if ($_SESSION['role'] == 4) {
                         header("Location: login.php?error=8");
-                    } else if ($_SESSION['role'] == 4) {
+                    } else if ($_SESSION['role'] == 5) {
                         header("Location: login.php?error=14");
                     } else {
                         header("Location: home.php");

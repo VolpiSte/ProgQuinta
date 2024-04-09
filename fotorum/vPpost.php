@@ -64,6 +64,9 @@ $stmt->execute();
 $likeCountResult = $stmt->get_result();
 $likeCount = $likeCountResult->fetch_assoc()['like_count'];
 
+
+$isAdmin = ($_SESSION['role'] == 2 || $_SESSION['role'] == 3);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -107,6 +110,9 @@ $likeCount = $likeCountResult->fetch_assoc()['like_count'];
         <input type="file" id="editPostFile" name="file">
         <input type="submit" value="Save Changes">
     </form>
+<?php endif; ?>
+
+<?php if (!$b || ($_SESSION['role'] == 2 || $_SESSION['role'] == 3)): ?>
     <!-- Add delete button -->
     <form action="vPpostControl.php" method="post" onsubmit="return confirm('Are you sure you want to delete this post?');">
         <input type="hidden" name="action" value="delete">
@@ -114,15 +120,16 @@ $likeCount = $likeCountResult->fetch_assoc()['like_count'];
         <input type="submit" value="Delete Post">
     </form>
 <?php endif; ?>
-<!-- Add like button -->
-<form id="likeForm" action="vPpostControl.php" method="post">
-    <input type="hidden" name="action" value="like">
-    <input type="hidden" name="post_id" value="<?php echo $postId; ?>">
-    <input type="hidden" name="account_id" value="<?php echo $accountId; ?>">
-    <input type="submit" value="<?php echo $buttonText; ?>">
-    <!-- Display the number of likes -->
-    <span id="likeCount"><?php echo $likeCount; ?> Likes</span>
-</form>
+
+    <!-- Add like button -->
+    <form id="likeForm" action="vPpostControl.php" method="post">
+        <input type="hidden" name="action" value="like">
+        <input type="hidden" name="post_id" value="<?php echo $postId; ?>">
+        <input type="hidden" name="account_id" value="<?php echo $accountId; ?>">
+        <input type="submit" value="<?php echo $buttonText; ?>">
+        <!-- Display the number of likes -->
+        <span id="likeCount"><?php echo $likeCount; ?> Likes</span>
+    </form>
 
 <!-- Add comment button -->
 <button id="showCommentFormButton">Commenta</button>
@@ -145,9 +152,9 @@ $likeCount = $likeCountResult->fetch_assoc()['like_count'];
     while ($comment = $result->fetch_assoc()) {
         echo "<div class='comment'>";
         echo "<p>" . htmlspecialchars($comment['nickname'], ENT_QUOTES, 'UTF-8') . ": " . htmlspecialchars($comment['text'], ENT_QUOTES, 'UTF-8') . "</p>";
-        if ($accountId === $comment['account_id']) {
+        if ($accountId === $comment['account_id'] || $isAdmin) {
             echo "<button class='deleteCommentButton' data-comment-id='" . $comment['id'] . "'>Delete Comment</button>";
-        }
+        }        
         echo "</div>";
     }
     ?>

@@ -15,7 +15,7 @@
         $sex = strip_tags($_POST['sex']);
         $pronoun = strip_tags($_POST['pronoun']);
         $work = strip_tags($_POST['work']);
-        $role = 0; // Default role is 'user'
+        $role = 1; // Default role is 'user'
         $photo = $_FILES['photo']['tmp_name'];
 
         // Check if the user is at least 16 years old and not born in the future

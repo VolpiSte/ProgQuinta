@@ -129,9 +129,6 @@ echo("
         </div>
         <hr>
         <div style='padding-left: 20px; padding-top:10px;'>
-            <h2><a href='/fotorum/api/sex'>Sex</a></h2>
-            <h2><a href='/fotorum/api/pronoun'>Pronoun</a></h2>
-            <h2><a href='/fotorum/api/role'>Role</a></h2>
             <h2><a href='/fotorum/api/account'>Account</a></h2>
             <h2><a href='/fotorum/api/post'>Post</a></h2>
             <h2><a href='/fotorum/api/likes'>Likes</a></h2>

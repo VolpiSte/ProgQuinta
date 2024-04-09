@@ -6,6 +6,8 @@
     }
     $nickname = isset($_SESSION['nickname']) ? $_SESSION['nickname'] : $_COOKIE['email_or_nickname'];
     $nickname = htmlspecialchars($nickname);
+    $isAdmin = ($_SESSION['role'] == 2 || $_SESSION['role'] == 3);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +62,9 @@ $posts = $resultPosts->fetch_all(MYSQLI_ASSOC);
 <hr>
 <a href="pUtente.php">Personal Profile</a><br>
 <a href="post.php">Create Post</a><br>
-<a href=""></a><br>
+<?php if ($isAdmin): ?>
+<a href="adminRoleChange.php">Osti</a><br>
+<?php endif; ?>
 <a href="logout.php">Logout</a><br>
 
 <div id="latestPosts">

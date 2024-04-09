@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Apr 04, 2024 alle 11:27
+-- Creato il: Apr 09, 2024 alle 12:58
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -26,8 +26,6 @@ SET time_zone = "+00:00";
 --
 -- Struttura della tabella `account`
 --
-CREATE DATABASE IF NOT EXISTS `fotorum` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `fotorum`;
 
 CREATE TABLE `account` (
   `id` int(11) NOT NULL,
@@ -52,9 +50,10 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`id`, `name`, `surname`, `nickname`, `email`, `password`, `salt`, `dateBorn`, `sex`, `pronoun`, `location`, `work`, `role`, `photo`, `verified`) VALUES
-(1, 'ciao', 'ciao', 'ciao', 'ciao@c.iao', '333b6722f8850df99849bb2dcb365d9ab16f5394368f4ae159575a762b695e92f28494e4d0b9ec758f5e0e02cc93600aaa814997ef02d2b3dc67770bf1d4ae4b', 'acfb774099276004c632bcac268051b7566c2fd6e135a11af0d5830e42f54c79', '2000-10-10', 3505, 22, 'ciao', 'ciao', 1, NULL, 1),
-(2, 'franco', 'franchini', 'FRanC0', 'Franco@e.figo', 'ac8f56d15601bea6dc237f13957b3f32a02032e417f327bfe2a042b4441791b24acb1a891d5df029bd0a9c2a5622426105307522d076a02deedefb6c1f026aa6', '3fcbde0b4e6577029693860270e76ee8227e48742305c6c56438917579767644', '2000-02-20', 748, 45, 'Casa Sua', 'Studente sottomesso', 1, 'fProfile/IMG_2582-Edit-Edit.webp', 1),
-(3, 'Filispo', 'Scanzsi', 'scanzi', 'scanzi@gmail.com', 'ae5f21f2eb6c635356d9f61eb2e589b74d9e603970741af63df89a82c5e6713f98be59a4302663a19d2f11c56ee8780dac16a81ba0acd5220ff35424ae4e6e41', '044da630ece6d2b7be97f4463741330a8e4a89a5d64afd53315745b5192e8aea', '2005-08-08', 3505, 22, 'Almenno', 'Studente', 1, NULL, 1);
+(1, 'admin', 'admin', 'admin', 'admina@a.dmin', 'dbf0f084e80f24e0dbc76285e654082633c281cb37b08ac564832de19662110fa537e8c593a8b10983bf32f636a9b1174c1af1f6ab08a3f97e3936f888a9971b', '8fba33d35410cde2c6d8fcfee13351ffb3a0894c9f84168064e3c124175d9d67', '0001-01-01', 3505, 22, 'admin', 'admin', 3, 'fProfile/IMG_0617.webp', 1),
+(6, 'simone', 'arzuffi', 'Contravvenzione', 'arzu@email.com', '845fc7102bc8f8d52e6014dec3ce2cad7f9285f57f39b6cc3ecfb2fcd79620334031f77ee22b8fac0500f2cf2829af4c2012a2b508e18bcced907d16de03a361', '47446ba20e6200062c5b5d262f2f5d5f292618277af4726698d0f43bc1a4d42d', '2005-05-08', 3505, 22, 'Zanica', 'Studente sottopagato', 1, 'fProfile/IMG_0632.webp', 1),
+(7, 'polpo', 'polpo', 'polpaccio', 'polpo@email.com', '1735706d1210ed5f6542f3aeb5eace819e5a7f810d2a8828f502746c28b907df57312869beab6cf1fe6096d083ade7fecb9b94cae8fa0d6432ffd322c5858168', '92e9a69f9711a048c2c06e99647d9936294dda81677af6d19df558416a01f180', '2005-12-27', 3505, 22, 'Locatello', 'NO', 1, 'fProfile/IMG_0017.webp', 1),
+(8, 'marco', 'montanelli', 'smonta', 'smonta@email.com', '8385f99c43b85b8441573a137ef455b37bb08c211a7ec932c55b7589f9dec69448d65d7a081a1fde0d60c6f4ce8453b5950010be64be6b8e3d02298211fd4983', '81dfe6b1a89086155cfe8465999289a483962bd503c7b65c81388edae964e0f2', '2005-03-29', 1901, 5, 'Casa', 'Studente', 1, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -68,6 +67,16 @@ CREATE TABLE `comment` (
   `post_id` int(11) DEFAULT NULL,
   `account_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `comment`
+--
+
+INSERT INTO `comment` (`id`, `text`, `post_id`, `account_id`) VALUES
+(4, 'Bella macchina (REAL)', 3, 1),
+(5, 'Ciao da Locatello', 3, 7),
+(6, 'Foto inappropriata (by Admin)', 4, 1),
+(7, 'Woo, in chiamata col Drago!!!🔥🔥', 4, 6);
 
 -- --------------------------------------------------------
 
@@ -86,8 +95,8 @@ CREATE TABLE `likes` (
 --
 
 INSERT INTO `likes` (`id`, `post_id`, `account_id`) VALUES
-(3, 1, 2),
-(4, 1, 3);
+(18, 3, 8),
+(19, 4, 8);
 
 -- --------------------------------------------------------
 
@@ -109,8 +118,8 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`id`, `photo`, `original_photo`, `file`, `text`, `account_id`) VALUES
-(1, 'fPostS/IMG_0071.webp', 'downloads/IMG_0071.JPG', NULL, 'Osti', 1),
-(2, 'fPostS/IMG_3998-Enhanced-NR-2.webp', 'downloads/IMG_3998-Enhanced-NR-2.jpg', NULL, 'Bergamo Valverde', 3);
+(3, 'fPostS/IMG_0634.webp', 'downloads/IMG_0634.JPG', NULL, 'Osti che bella macchina (la mia)', 6),
+(4, 'fPostS/IMG_0621.webp', 'downloads/IMG_0621.JPG', NULL, 'Myself (beautiful)', 8);
 
 -- --------------------------------------------------------
 
@@ -269,11 +278,11 @@ CREATE TABLE `role` (
 --
 
 INSERT INTO `role` (`id`, `role`, `description`) VALUES
-(1, 0, 'user'),
-(2, 1, 'admin'),
-(3, 2, 'Admin'),
-(4, 3, 'blocked'),
-(5, 4, 'banned');
+(1, 1, 'user'),
+(2, 2, 'admin'),
+(3, 3, 'Admin'),
+(4, 4, 'blocked'),
+(5, 5, 'banned');
 
 -- --------------------------------------------------------
 
@@ -370,25 +379,25 @@ ALTER TABLE `verify`
 -- AUTO_INCREMENT per la tabella `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT per la tabella `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT per la tabella `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT per la tabella `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT per la tabella `pronoun`
@@ -406,13 +415,13 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT per la tabella `sex`
 --
 ALTER TABLE `sex`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3620;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `verify`
 --
 ALTER TABLE `verify`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Limiti per le tabelle scaricate
