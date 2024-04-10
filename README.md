@@ -112,9 +112,8 @@ Like (<ins>id_like</ins>, <ins>id_post</ins>, <ins>account_nickname</ins>) <br>
 ![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/3aa77d3f-5cfe-415b-8251-56b0e5c9b734)
 
 # PER FARLO FUNZIONARE
-- Avere XAMPP in locale
-- Importare querys.sql all'interno di Mysql
-- usare il fotorum.sql e creare le tabelle (se non va usare queries.sql ma non avrai account e altre cose)
+- io ho utilizzato XAMPP in locale
+- usare il fotorum.sql e creare le tabelle (ci sono già alcuni account e alcune foto di prova personali)
 - abilitare in XAMPP la libreria gd (php.ini)
 - utilizzare il seguente comando per il Composer (solo JWT):
 composer install --ignore-platform-req=ext-simplexml --ignore-platform-req=ext-fileinfo
