@@ -12,7 +12,7 @@
     $searchTermWithWildcard = $searchTerm . '%';
 
     // Fetch matching accounts
-    $stmt = $conn->prepare('SELECT id, nickname FROM Account WHERE nickname LIKE ? LIMIT 10');
+    $stmt = $conn->prepare('SELECT id, nickname FROM account WHERE nickname LIKE ? LIMIT 10');
     $stmt->bind_param('s', $searchTermWithWildcard);
     $stmt->execute();
     $result = $stmt->get_result();

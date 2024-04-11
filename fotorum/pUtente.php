@@ -16,9 +16,9 @@
     }
 
     // Fetch user information
-    $stmt = $conn->prepare('SELECT Account.*, Sex.sex, Pronoun.pronoun FROM Account 
-                            INNER JOIN Sex ON Account.sex = Sex.id 
-                            INNER JOIN Pronoun ON Account.pronoun = Pronoun.id 
+    $stmt = $conn->prepare('SELECT account.*, sex.sex, pronoun.pronoun FROM account 
+                            INNER JOIN sex ON account.sex = sex.id 
+                            INNER JOIN pronoun ON account.pronoun = pronoun.id 
                             WHERE nickname = ?');
     $stmt->bind_param('s', $_SESSION['nickname']);
     $stmt->execute();
@@ -33,7 +33,7 @@
     }
 
         // Fetch user posts
-        $stmtPosts = $conn->prepare('SELECT * FROM Post WHERE account_id = ?');
+        $stmtPosts = $conn->prepare('SELECT * FROM post WHERE account_id = ?');
         $stmtPosts->bind_param('i', $user['id']);
         $stmtPosts->execute();
         $resultPosts = $stmtPosts->get_result();
@@ -87,7 +87,7 @@
             <?php
                 include 'connection.php';
                 // Fetch the options for the Sex field
-                $result = $conn->query("SELECT id, sex FROM Sex ORDER BY sex");
+                $result = $conn->query("SELECT id, sex FROM sex ORDER BY sex");
                 while ($roi = $result->fetch_assoc()) {
                     echo "<option value='" . $roi['id'] . "'" . ($user['sex'] == $roi['sex'] ? ' selected' : '') . ">" . $roi['sex'] . "</option>";
                 }
@@ -97,7 +97,7 @@
         <select id="editPronounSelect" name="editPronoun" required>
             <?php
                 // Fetch the options for the Pronoun field
-                $result = $conn->query("SELECT id, pronoun FROM Pronoun");
+                $result = $conn->query("SELECT id, pronoun FROM pronoun");
                 while ($row = $result->fetch_assoc()) {
                     echo "<option value='" . $row['id'] . "'" . ($user['pronoun'] == $row['pronoun'] ? ' selected' : '') . ">" . $row['pronoun'] . "</option>";
                 }

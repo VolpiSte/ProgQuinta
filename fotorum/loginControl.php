@@ -7,7 +7,7 @@
         $email_or_nickname = strip_tags($_POST['email_or_nickname']);
         $password = $_POST['password'];
 
-        $stmt = $conn->prepare("SELECT * FROM Account WHERE email = ? OR nickname = ?");
+        $stmt = $conn->prepare("SELECT * FROM account WHERE email = ? OR nickname = ?");
         $stmt->bind_param("ss", $email_or_nickname, $email_or_nickname);
         $stmt->execute();
         $result = $stmt->get_result();

@@ -17,7 +17,7 @@
         $email_or_nickname = isset($_SESSION['nickname']) ? $_SESSION['nickname'] : strip_tags($_POST['email_or_nickname']);
 
         // Retrieve the old salt and hashed password from the database
-        $stmt = $conn->prepare("SELECT salt, password FROM Account WHERE email = ? OR nickname = ?");
+        $stmt = $conn->prepare("SELECT salt, password FROM account WHERE email = ? OR nickname = ?");
         $stmt->bind_param("ss", $email_or_nickname, $email_or_nickname);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -36,7 +36,7 @@
         $hashed_password = hash('sha3-512', $salt . $password);
 
         // Prepare an UPDATE statement
-        $stmt = $conn->prepare("UPDATE Account SET password = ?, salt = ? WHERE email = ? OR nickname = ?");
+        $stmt = $conn->prepare("UPDATE account SET password = ?, salt = ? WHERE email = ? OR nickname = ?");
         $stmt->bind_param("ssss", $hashed_password, $salt, $email_or_nickname, $email_or_nickname);
 
         // Execute the statement

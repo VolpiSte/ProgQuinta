@@ -5,7 +5,7 @@
     //echo "Connected to database<br>"; // Debug: stampa un messaggio quando la connessione è stabilita
 
     // Verifica se i dati sono già stati inseriti
-    $check = "SELECT COUNT(*) AS count FROM Sex";
+    $check = "SELECT COUNT(*) AS count FROM sex";
     $result = $conn->query($check);
     $row = $result->fetch_assoc();
 
@@ -13,7 +13,7 @@
 
     // Se i dati non sono stati inseriti, esegui la query di inserimento
     if ($row['count'] == 0) {
-        $sql = "INSERT INTO Sex (sex) VALUES ('Medzfluid'),
+        $sql = "INSERT INTO sex (sex) VALUES ('Medzfluid'),
         ('Beamgenderprisic'),
         ('Hydrangeaflux'),
         ('Childfluix'),
@@ -3635,7 +3635,7 @@
 //echo "Running query: $sql<br>"; // Debug: stampa la query prima di eseguirla
 
 if ($conn->query($sql) === TRUE) {
-    echo "Records inserted successfully";
+    //echo "Records inserted successfully";
 } else {
     echo "Error inserting records: " . $conn->error;
 }

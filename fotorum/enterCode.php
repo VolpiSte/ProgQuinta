@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Retrieve the verification_code and expiration_date from the database for the current user
-    $stmt = $conn->prepare("SELECT verification_code, expiration_date FROM Verify INNER JOIN Account ON Verify.account_id = Account.id WHERE Account.email = ?");
+    $stmt = $conn->prepare("SELECT verification_code, expiration_date FROM Verify INNER JOIN account ON Verify.account_id = account.id WHERE account.email = ?");
     $stmt->bind_param("s", $_SESSION['email']);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -30,18 +30,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($currentDateTime > $expirationDateTime) {
                 // If the code has expired, delete the account
-                $stmt = $conn->prepare("DELETE FROM Account WHERE email = ?");
+                $stmt = $conn->prepare("DELETE FROM account WHERE email = ?");
                 $stmt->bind_param("s", $_SESSION['email']);
                 $stmt->execute();
 
                 header("Location: register.php?error=2");
             } else {
                 // If the code has not expired, set the verified field to true for the account and delete the verification_code and expiration_date from the Verify table
-                $stmt = $conn->prepare("UPDATE Account SET verified = TRUE WHERE email = ?");
+                $stmt = $conn->prepare("UPDATE account SET verified = TRUE WHERE email = ?");
                 $stmt->bind_param("s", $_SESSION['email']);
                 $stmt->execute();
 
-                $stmt = $conn->prepare("DELETE FROM Verify WHERE account_id = (SELECT id FROM Account WHERE email = ?)");
+                $stmt = $conn->prepare("DELETE FROM Verify WHERE account_id = (SELECT id FROM account WHERE email = ?)");
                 $stmt->bind_param("s", $_SESSION['email']);
                 $stmt->execute();
 

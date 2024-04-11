@@ -14,10 +14,10 @@ if (!isset($_GET['id'])) {
 $id = $_GET['id'];
 
 // Fetch the user data from the database
-$stmt = $conn->prepare('SELECT Account.*, Sex.sex, Pronoun.pronoun FROM Account 
-                        LEFT JOIN Sex ON Account.sex = Sex.id 
-                        LEFT JOIN Pronoun ON Account.pronoun = Pronoun.id 
-                        WHERE Account.id = ?');
+$stmt = $conn->prepare('SELECT account.*, sex.sex, pronoun.pronoun FROM account 
+                        LEFT JOIN sex ON account.sex = sex.id 
+                        LEFT JOIN pronoun ON account.pronoun = pronoun.id 
+                        WHERE account.id = ?');
 $stmt->bind_param('i', $id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -58,7 +58,7 @@ if ($rolesResult->num_rows > 0) {
 echo "</select>";
 
 // Fetch the posts of the user
-$stmt = $conn->prepare('SELECT id, photo, file, text FROM Post WHERE account_id = ?');
+$stmt = $conn->prepare('SELECT id, photo, file, text FROM post WHERE account_id = ?');
 $stmt->bind_param('i', $id);
 $stmt->execute();
 $result = $stmt->get_result();

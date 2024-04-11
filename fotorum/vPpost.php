@@ -18,7 +18,7 @@
 
     $postId = $_POST['post_id'];
 
-    $stmt = $conn->prepare('SELECT Post.*, Account.nickname, Account.id as accountId FROM Post INNER JOIN Account ON Post.account_id = Account.id WHERE Post.id = ?');
+    $stmt = $conn->prepare('SELECT post.*, account.nickname, account.id as accountId FROM post INNER JOIN account ON post.account_id = account.id WHERE post.id = ?');
     $stmt->bind_param('i', $postId);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -36,7 +36,7 @@
         $b = true;
     }
     $nickname = $_SESSION['nickname'];
-    $stmt = $conn->prepare('SELECT id FROM Account WHERE nickname = ?');
+    $stmt = $conn->prepare('SELECT id FROM account WHERE nickname = ?');
     $stmt->bind_param('s', $nickname);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -50,7 +50,7 @@
     $accountId = $account['id'];
 
     // Check if the user has already liked the post
-    $stmt = $conn->prepare("SELECT * FROM Likes WHERE post_id = ? AND account_id = ?");
+    $stmt = $conn->prepare("SELECT * FROM likes WHERE post_id = ? AND account_id = ?");
     $stmt->bind_param("ii", $postId, $accountId);
     $stmt->execute();
     $like = $stmt->get_result()->fetch_assoc();
@@ -58,7 +58,7 @@
     $buttonText = $like ? "Remove Like" : "Like";
 
     // Count the number of likes for the post
-$stmt = $conn->prepare("SELECT COUNT(*) as like_count FROM Likes WHERE post_id = ?");
+$stmt = $conn->prepare("SELECT COUNT(*) as like_count FROM likes WHERE post_id = ?");
 $stmt->bind_param("i", $postId);
 $stmt->execute();
 $likeCountResult = $stmt->get_result();
@@ -145,7 +145,7 @@ $isAdmin = ($_SESSION['role'] == 2 || $_SESSION['role'] == 3);
 <!-- Display comments -->
 <div id="comments">
     <?php
-    $stmt = $conn->prepare('SELECT Comment.*, Account.nickname FROM Comment INNER JOIN Account ON Comment.account_id = Account.id WHERE Comment.post_id = ? ORDER BY Comment.id DESC');
+    $stmt = $conn->prepare('SELECT comment.*, account.nickname FROM comment INNER JOIN account ON comment.account_id = account.id WHERE comment.post_id = ? ORDER BY comment.id DESC');
     $stmt->bind_param('i', $postId);
     $stmt->execute();
     $result = $stmt->get_result();

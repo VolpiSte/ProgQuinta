@@ -50,7 +50,7 @@
 include 'connection.php';
 
 // Fetch the latest 3 posts along with the account nickname
-$stmtPosts = $conn->prepare('SELECT Post.*, Account.nickname FROM Post INNER JOIN Account ON Post.account_id = Account.id ORDER BY Post.id DESC LIMIT 3');
+$stmtPosts = $conn->prepare('SELECT post.*, Account.nickname FROM post INNER JOIN Account ON post.account_id = Account.id ORDER BY post.id DESC LIMIT 3');
 $stmtPosts->execute();
 $resultPosts = $stmtPosts->get_result();
 $posts = $resultPosts->fetch_all(MYSQLI_ASSOC);

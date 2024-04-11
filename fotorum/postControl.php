@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nickname = $_SESSION['nickname'];
 
     // Retrieve the account_id from the database
-    $stmt = $conn->prepare("SELECT id FROM Account WHERE nickname = ?");
+    $stmt = $conn->prepare("SELECT id FROM account WHERE nickname = ?");
     $stmt->bind_param("s", $nickname);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Insert the post into the database, including the original photo path
-        $stmt = $conn->prepare("INSERT INTO Post (text, photo, original_photo, file, account_id) VALUES (?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO post (text, photo, original_photo, file, account_id) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssi", $text, $photo_path, $original_photo_path, $file_path, $account_id);
         $stmt->execute();
 

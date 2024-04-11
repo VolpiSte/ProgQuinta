@@ -49,7 +49,7 @@
                 <?php
                     include 'connection.php';
                     // Fetch the options for the Sex field
-                    $result = $conn->query("SELECT id, sex FROM Sex ORDER BY sex");
+                    $result = $conn->query("SELECT id, sex FROM sex ORDER BY sex");
                     while ($row = $result->fetch_assoc()) {
                         $sex = strip_tags($row['sex']);
                         echo "<option value='" . $sex . "'>";
@@ -60,7 +60,7 @@
             <select id="pronoun" name="pronoun" required>
                 <?php
                     // Fetch the options for the Pronoun field
-                    $result = $conn->query("SELECT id, pronoun FROM Pronoun");
+                    $result = $conn->query("SELECT id, pronoun FROM pronoun");
                     while ($row = $result->fetch_assoc()) {
                         $id = strip_tags($row['id']);
                         $pronoun = strip_tags($row['pronoun']);

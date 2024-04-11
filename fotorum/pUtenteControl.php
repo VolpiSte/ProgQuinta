@@ -48,14 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Update user information
-    $stmt = $conn->prepare('UPDATE Account SET name = ?, surname = ?, location = ?, work = ?, sex = ?, pronoun = ?, photo = ? WHERE nickname = ?');
+    $stmt = $conn->prepare('UPDATE account SET name = ?, surname = ?, location = ?, work = ?, sex = ?, pronoun = ?, photo = ? WHERE nickname = ?');
     $stmt->bind_param('ssssssss', $_POST['name'], $_POST['editSurname'], $_POST['editLocation'], $_POST['editWork'], $_POST['editSex'], $_POST['editPronoun'], $photo_path, $_SESSION['nickname']);
     $stmt->execute();
 
             // Fetch the updated user information
-            $stmt = $conn->prepare('SELECT Account.*, Sex.sex, Pronoun.pronoun FROM Account 
-                                    INNER JOIN Sex ON Account.sex = Sex.id 
-                                    INNER JOIN Pronoun ON Account.pronoun = Pronoun.id 
+            $stmt = $conn->prepare('SELECT account.*, sex.sex, pronoun.pronoun FROM account 
+                                    INNER JOIN sex ON account.sex = sex.id 
+                                    INNER JOIN pronoun ON account.pronoun = pronoun.id 
                                     WHERE nickname = ?');
             $stmt->bind_param('s', $_SESSION['nickname']);
             $stmt->execute();

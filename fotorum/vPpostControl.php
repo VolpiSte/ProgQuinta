@@ -19,7 +19,7 @@
     $postId = $_POST['post_id'];
 
     if ($_POST['action'] === 'delete') {
-        $stmt = $conn->prepare('DELETE FROM Post WHERE id = ?');
+        $stmt = $conn->prepare('DELETE FROM post WHERE id = ?');
         $stmt->bind_param('i', $postId);
         $stmt->execute();
 
@@ -50,7 +50,7 @@
         }
     } elseif ($_POST['action'] === 'like') {
         $nickname = $_SESSION['nickname'];
-        $stmt = $conn->prepare('SELECT id FROM Account WHERE nickname = ?');
+        $stmt = $conn->prepare('SELECT id FROM account WHERE nickname = ?');
         $stmt->bind_param('s', $nickname);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -64,7 +64,7 @@
         $accountId = $account['id'];
     
         // Check if a like already exists
-        $stmt = $conn->prepare("SELECT * FROM Likes WHERE post_id = ? AND account_id = ?");
+        $stmt = $conn->prepare("SELECT * FROM likes WHERE post_id = ? AND account_id = ?");
         $stmt->bind_param("ii", $postId, $accountId);
         $stmt->execute();
         $like = $stmt->get_result()->fetch_assoc();
@@ -73,7 +73,7 @@
     
         if ($like) {
             // If a like exists, delete it
-            $stmt = $conn->prepare("DELETE FROM Likes WHERE post_id = ? AND account_id = ?");
+            $stmt = $conn->prepare("DELETE FROM likes WHERE post_id = ? AND account_id = ?");
             $stmt->bind_param("ii", $postId, $accountId);
             $stmt->execute();
     
@@ -82,7 +82,7 @@
                 $response['message'] = 'Like removed successfully';
     
                 // Get the updated like count
-                $stmt = $conn->prepare("SELECT COUNT(*) as like_count FROM Likes WHERE post_id = ?");
+                $stmt = $conn->prepare("SELECT COUNT(*) as like_count FROM likes WHERE post_id = ?");
                 $stmt->bind_param("i", $postId);
                 $stmt->execute();
                 $likeCountResult = $stmt->get_result();
@@ -95,7 +95,7 @@
             }
         } else {
             // If no like exists, add one
-            $stmt = $conn->prepare("INSERT INTO Likes (post_id, account_id) VALUES (?, ?)");
+            $stmt = $conn->prepare("INSERT INTO likes (post_id, account_id) VALUES (?, ?)");
             $stmt->bind_param("ii", $postId, $accountId);
             $stmt->execute();
     
@@ -104,7 +104,7 @@
                 $response['message'] = 'Like added successfully';
     
                 // Get the updated like count
-                $stmt = $conn->prepare("SELECT COUNT(*) as like_count FROM Likes WHERE post_id = ?");
+                $stmt = $conn->prepare("SELECT COUNT(*) as like_count FROM likes WHERE post_id = ?");
                 $stmt->bind_param("i", $postId);
                 $stmt->execute();
                 $likeCountResult = $stmt->get_result();
@@ -122,7 +122,7 @@
         $accountId = $_POST['account_id'];
         $text = $_POST['text'];
     
-        $stmt = $conn->prepare("INSERT INTO Comment (text, post_id, account_id) VALUES (?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO comment (text, post_id, account_id) VALUES (?, ?, ?)");
         $stmt->bind_param("sii", $text, $postId, $accountId);
         $stmt->execute();
     
@@ -140,7 +140,7 @@
         } else {
             $commentId = $_POST['comment_id'];
     
-            $stmt = $conn->prepare("DELETE FROM Comment WHERE id = ?");
+            $stmt = $conn->prepare("DELETE FROM comment WHERE id = ?");
             $stmt->bind_param("i", $commentId);
             $stmt->execute();
     

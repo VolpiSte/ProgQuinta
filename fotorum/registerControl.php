@@ -45,7 +45,7 @@
         }
 
         // Check if email or nickname already exists
-        $stmt = $conn->prepare("SELECT * FROM Account WHERE email = ? OR nickname = ?");
+        $stmt = $conn->prepare("SELECT * FROM account WHERE email = ? OR nickname = ?");
         $stmt->bind_param("ss", $email, $nickname);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -98,7 +98,7 @@
         $hashed_password = hash('sha3-512', $salt . $password);
 
         // Fetch the sex ID based on the provided sex value
-        $stmt = $conn->prepare("SELECT id FROM Sex WHERE sex = ?");
+        $stmt = $conn->prepare("SELECT id FROM sex WHERE sex = ?");
         $stmt->bind_param("s", $sex);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -112,8 +112,8 @@
         $row = $result->fetch_assoc();
         $sex_id = $row['id'];
 
-        // Ora puoi utilizzare $sex_id nella tua query di inserimento in Account
-        $stmt = $conn->prepare("INSERT INTO Account (name, surname, nickname, email, password, salt, dateBorn, sex, pronoun, location, work, role, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT id FROM Role WHERE role = ?), ?)");
+        // Ora puoi utilizzare $sex_id nella tua query di inserimento in account
+        $stmt = $conn->prepare("INSERT INTO account (name, surname, nickname, email, password, salt, dateBorn, sex, pronoun, location, work, role, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT id FROM Role WHERE role = ?), ?)");
         $stmt->bind_param("sssssssssssss", $name, $surname, $nickname, $email, $hashed_password, $salt, $dateBorn, $sex_id, $pronoun, $location, $work, $role, $photo_path);
         $stmt->execute();
 
@@ -128,7 +128,7 @@
         $expiration_date = date("Y-m-d H:i:s", strtotime("+1 day")); // code expires after 1 day
 
         // Insert the verification code into the Verify table
-        $stmt = $conn->prepare("INSERT INTO Verify (account_id, verification_code, expiration_date) VALUES (?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO verify (account_id, verification_code, expiration_date) VALUES (?, ?, ?)");
         $stmt->bind_param("iss", $account_id, $verification_code, $expiration_date);
         $stmt->execute();
 
