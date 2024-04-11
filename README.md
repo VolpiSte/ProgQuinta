@@ -113,7 +113,7 @@ Like (<ins>id_like</ins>, <ins>id_post</ins>, <ins>account_nickname</ins>) <br>
 
 # PER FARLO FUNZIONARE
 - io ho utilizzato XAMPP in locale
-- IMPORTARE TASSATIVAMENTE fotorum.sql
+- IMPORTARE TASSATIVAMENTE fotorum(3).sql IN XAMPP CON IMPORTA IL FILE
 - abilitare in XAMPP la libreria gd (php.ini)
 - utilizzare il seguente comando per il Composer (solo JWT):
 composer install --ignore-platform-req=ext-simplexml --ignore-platform-req=ext-fileinfo
