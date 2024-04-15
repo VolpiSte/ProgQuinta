@@ -113,7 +113,7 @@
         $sex_id = $row['id'];
 
         // Ora puoi utilizzare $sex_id nella tua query di inserimento in account
-        $stmt = $conn->prepare("INSERT INTO account (name, surname, nickname, email, password, salt, dateBorn, sex, pronoun, location, work, role, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT id FROM Role WHERE role = ?), ?)");
+        $stmt = $conn->prepare("INSERT INTO account (name, surname, nickname, email, password, salt, dateBorn, sex, pronoun, location, work, role, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT id FROM role WHERE role = ?), ?)");
         $stmt->bind_param("sssssssssssss", $name, $surname, $nickname, $email, $hashed_password, $salt, $dateBorn, $sex_id, $pronoun, $location, $work, $role, $photo_path);
         $stmt->execute();
 
