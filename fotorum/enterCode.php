@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Retrieve the verification_code and expiration_date from the database for the current user
-    $stmt = $conn->prepare("SELECT verification_code, expiration_date FROM Verify INNER JOIN account ON Verify.account_id = account.id WHERE account.email = ?");
+    $stmt = $conn->prepare("SELECT verification_code, expiration_date FROM verify INNER JOIN account ON verify.account_id = account.id WHERE account.email = ?");
     $stmt->bind_param("s", $_SESSION['email']);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt->bind_param("s", $_SESSION['email']);
                 $stmt->execute();
 
-                $stmt = $conn->prepare("DELETE FROM Verify WHERE account_id = (SELECT id FROM account WHERE email = ?)");
+                $stmt = $conn->prepare("DELETE FROM verify WHERE account_id = (SELECT id FROM account WHERE email = ?)");
                 $stmt->bind_param("s", $_SESSION['email']);
                 $stmt->execute();
 
