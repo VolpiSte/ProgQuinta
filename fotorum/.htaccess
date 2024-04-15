@@ -1,0 +1,22 @@
+RewriteEngine On
+RewriteBase /fotorum/
+
+# Specific rule for the verifica path
+RewriteRule ^api/verifica/?$ verifica.php [NC,L]
+
+# Rule for specific API endpoint with ID and specific information
+RewriteRule ^api/([a-zA-Z0-9_-]+)/([0-9]+)/([a-zA-Z0-9_-]+)/?$ api.php?tabella=$1&id=$2&info=$3 [NC,L]
+
+# Rule for specific API endpoint with ID
+RewriteRule ^api/([a-zA-Z0-9_-]+)/([0-9]+)/?$ api.php?tabella=$1&id=$2 [NC,L]
+
+# General rule for other API endpoints
+RewriteRule ^api/([a-zA-Z0-9_-]+)/?$ api.php?tabella=$1 [NC,L]
+
+# Prevent rewrite for existing files or directories
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite rule for removing .php extension
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
