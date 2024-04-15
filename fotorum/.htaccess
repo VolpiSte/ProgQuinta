@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /fotorum/
+RewriteBase www/fotorum/
 
 # Specific rule for the verifica path
 RewriteRule ^api/verifica/?$ verifica.php [NC,L]
