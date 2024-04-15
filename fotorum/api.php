@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/fotor
     $password = $_POST['password'];
 
     // Recupera l'utente dal database
-    $query = "SELECT * FROM Account WHERE nickname = ?";
+    $query = "SELECT * FROM account WHERE nickname = ?";
     $stmt = $connessione->prepare($query);
     $stmt->bind_param('s', $nickname);
     $stmt->execute();
