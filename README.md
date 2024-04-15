@@ -115,7 +115,7 @@ Like (<ins>id_like</ins>, <ins>id_post</ins>, <ins>account_nickname</ins>) <br>
 - io ho utilizzato XAMPP in locale
 - IMPORTARE TASSATIVAMENTE fotorum(3).sql IN XAMPP CON IMPORTA IL FILE
 - abilitare in XAMPP la libreria gd (php.ini)
-- docker: docker run --name myXampp -p 41061:22 -p 41062:80 -d -v /workspaces/ProgQuinta/www tomsik68/xampp:8
+- docker: docker run --name myXampp -p 41061:22 -p 41062:80 -d -v /workspaces/ProgQuinta:/www tomsik68/xampp:8
 - utilizzare il seguente comando per il Composer (solo JWT):
 composer install --ignore-platform-req=ext-simplexml --ignore-platform-req=ext-fileinfo
 - URL localhost
