@@ -19,7 +19,7 @@ if($connessione->connect_errno)
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/fotorum/api/login') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/www/fotorum/api/login') {
     // Estrai l'nickname e la password dal corpo della richiesta
     $nickname = $_POST['nickname'];
     $password = $_POST['password'];
@@ -118,22 +118,22 @@ echo("
     <body>
         <div>
             <h1>Api</h1>
-            <form action='/fotorum/api/login' method='post'>
+            <form action='/www/fotorum/api/login' method='post'>
                 <label for='nickname'>nickname:</label><br>
                 <input type='text' id='nickname' name='nickname'><br>
                 <label for='password'>Password:</label><br>
                 <input type='password' id='password' name='password'><br>
                 <input type='submit' value='Submit'>
             </form>
-            <h2><a href='/fotorum/verifica.html'>verifica</a></h2>
+            <h2><a href='/www/fotorum/verifica.html'>verifica</a></h2>
         </div>
         <hr>
         <div style='padding-left: 20px; padding-top:10px;'>
-            <h2><a href='/fotorum/api/account'>Account</a></h2>
-            <h2><a href='/fotorum/api/post'>Post</a></h2>
-            <h2><a href='/fotorum/api/likes'>Likes</a></h2>
-            <h2><a href='/fotorum/api/comment'>Comment</a></h2>
-            <h2><a href='/fotorum/index'>Home</a></h2>
+            <h2><a href='/www/fotorum/api/account'>Account</a></h2>
+            <h2><a href='/www/fotorum/api/post'>Post</a></h2>
+            <h2><a href='/www/fotorum/api/likes'>Likes</a></h2>
+            <h2><a href='/www/fotorum/api/comment'>Comment</a></h2>
+            <h2><a href='/www/fotorum/index'>Home</a></h2>
         </div>
     </body>
 </html>");
