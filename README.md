@@ -111,6 +111,9 @@ Like (<ins>id_like</ins>, <ins>id_post</ins>, <ins>account_nickname</ins>) <br>
 ![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/75a31dee-d88a-41b4-a70c-e4ed72cf6fee)
 ![image](https://github.com/VolpiSte/ProgQuinta/assets/101709267/3aa77d3f-5cfe-415b-8251-56b0e5c9b734)
 
+# Modo per vedere il progetto:
+ALTERVISTA: https://volpisus.altervista.org/fotorum
+
 # PER FARLO FUNZIONARE
 - io ho utilizzato XAMPP in locale (SE VUOI USARE IL CODESPACE HO CREATO UNA BRANCH APPOSITA)
 - IMPORTARE TASSATIVAMENTE fotorum(3).sql IN XAMPP CON IMPORTA IL FILE
